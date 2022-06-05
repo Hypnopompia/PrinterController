@@ -59,6 +59,15 @@ class Component:
     def get_rect(self):
         return pygame.Rect(self.x, self.y, self.width, self.height)
 
+    def is_mouse_over(self, pos=False):
+        if not pos:
+            pos = pygame.mouse.get_pos()
+
+        if self.get_rect().collidepoint(pos):
+            return True
+        else:
+            return False
+
     def is_moving(self):
         if self.move_x_target != self.x or self.move_y_target != self.y:
             return True

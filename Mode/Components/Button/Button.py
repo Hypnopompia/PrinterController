@@ -13,24 +13,15 @@ class Button(Component):
         self.color_hover = color_hover
         self.on_click = on_click
 
-    def is_hover(self):
-        pos = pygame.mouse.get_pos()
-        if self.get_rect().collidepoint(pos):
-            return True
-        else:
-            return False
-
     def process_event(self, event):
-        print(event)
-        print("Hover: " + "Yes" if self.get_rect().collidepoint(event.pos) else "No")
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1 and self.get_rect().collidepoint(event.pos):
+            if event.button == 1 and self.is_mouse_over(event.pos):
                 self.on_click()
 
     def update(self, state):
         self.current_color = self.color
-        if self.is_hover():
-            self.current_color = self.color_hover
+        # if self.is_mouse_over():
+        #     self.current_color = self.color_hover
 
     def render(self, surface):
         pygame.draw.rect(surface, self.current_color, self.get_rect())
