@@ -21,6 +21,8 @@ class Button(Component):
             return False
 
     def process_event(self, event):
+        print(event)
+        print("Hover: " + "Yes" if self.is_hover() else "No")
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1 and self.is_hover():
                 self.on_click()
