@@ -24,7 +24,7 @@ class Button(Component):
         print(event)
         print("Hover: " + "Yes" if self.is_hover() else "No")
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1 and self.is_hover():
+            if event.button == 1 and self.get_rect().collidepoint(event.pos):
                 self.on_click()
 
     def update(self, state):
