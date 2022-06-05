@@ -15,10 +15,13 @@ class PrinterController:
 
         if platform == "linux" or platform == "linux2":
             # https://github.com/MobilityLab/TransitScreen/wiki/Raspberry-Pi
-            self.window = pygame.display.set_mode((self.state.window_width, self.state.window_height), pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.FULLSCREEN)
-            pygame.mouse.set_visible(False)
+            self.window = pygame.display.set_mode((self.state.window_width, self.state.window_height),
+                                                  pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.FULLSCREEN)
+            # pygame.mouse.set_visible(False)
+            pygame.mouse.set_cursor((8, 8), (0, 0), (0, 0, 0, 0, 0, 0, 0, 0), (0, 0, 0, 0, 0, 0, 0, 0))
         elif platform == "darwin":
-            self.window = pygame.display.set_mode((self.state.window_width, self.state.window_height), pygame.HWSURFACE | pygame.DOUBLEBUF)
+            self.window = pygame.display.set_mode((self.state.window_width, self.state.window_height),
+                                                  pygame.HWSURFACE | pygame.DOUBLEBUF)
 
         pygame.display.set_caption('3D Printer Controller')
 
