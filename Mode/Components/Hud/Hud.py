@@ -10,6 +10,9 @@ class Hud:
         self.status = None
         self.clock = pygame.time.Clock()
 
+    def process_event(self, event):
+        pass
+
     def update(self, state):
         self.state = state
         self.fps = "FPS: " + str(self.state.current_fps)

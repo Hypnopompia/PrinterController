@@ -24,26 +24,15 @@ class PrinterController:
 
         self.clock = pygame.time.Clock()
 
+        self.printer = RestClient(self.state)
         self.switch_mode(ControlMode)
 
-        self.printer = RestClient(self.state)
         self.state.octoprint_session = self.printer.get_session_key()
         self.printer_info = ThreadedWebSocket(self.state)
 
     def switch_mode(self, mode):
-        self.mode = mode(self.state)
+        self.mode = mode(self.state, self.printer)
         self.mode.add_observer(self)
-
-    def printer_command(self, command):
-        if command == "preheat":
-            if not self.state.preheating:
-                self.state.preheating = True
-                self.printer.start_preheat()
-            else:
-                self.state.preheating = False
-                self.printer.stop_preheat()
-        elif command == "home":
-            self.printer.home(['x', 'y', 'z'])
 
     def process_events(self):
         for event in pygame.event.get():

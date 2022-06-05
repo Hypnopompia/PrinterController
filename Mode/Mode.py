@@ -1,7 +1,8 @@
 class Mode:
-    def __init__(self, state):
+    def __init__(self, state, printer):
         self.__observers = []
         self.state = state
+        self.printer = printer
 
     def add_observer(self, observer):
         self.__observers.append(observer)
@@ -22,3 +23,6 @@ class Mode:
 
     def render(self, window):
         raise NotImplementedError()
+
+    def home_printer(self):
+        self.printer.home(['x', 'y', 'z'])

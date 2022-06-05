@@ -10,6 +10,9 @@ class Camera(Component):
         self.state = None
         self.videoStream = ThreadedCamera(source)
 
+    def process_event(self, event):
+        pass
+
     def update(self, state):
         self.state = state
         self.animate()

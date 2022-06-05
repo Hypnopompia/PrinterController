@@ -56,6 +56,9 @@ class Component:
 
         return pygame.transform.scale(img, (int(sx), int(sy)))
 
+    def get_rect(self):
+        return pygame.Rect(self.x, self.y, self.width, self.height)
+
     def is_moving(self):
         if self.move_x_target != self.x or self.move_y_target != self.y:
             return True
@@ -108,3 +111,12 @@ class Component:
 
             if self.move_y_step >= self.move_steps or self.move_y_step <= 0:
                 self.y = self.move_y_target
+
+    def process_event(self, event):
+        raise NotImplementedError()
+
+    def update(self, state):
+        raise NotImplementedError()
+
+    def render(self, surface):
+        raise NotImplementedError()
