@@ -12,7 +12,7 @@ class ControlMode(Mode):
         self.background = Background((60, 0, 0))
         self.hud = Hud()
         self.camera = False  # Camera(50, 50, 200, 200, self.state.camera_source)
-        self.button_home = Button(100, 100, 120, 50, "Home", self.state.large_font, pygame.Color("darkorange2"), pygame.Color("firebrick2"),
+        self.button_home = Button(100, 100, 160, 50, "Home", self.state.large_font, pygame.Color("darkorange2"), pygame.Color("firebrick2"),
                                   self.button_home_on_click)
 
         self.components = []

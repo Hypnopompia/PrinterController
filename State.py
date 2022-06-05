@@ -25,5 +25,11 @@ class State:
     camera_source: str = "http://ender3.local/webcam/?action=stream"
 
     def __init__(self):
-        self.small_font = pygame.font.SysFont("Arial", 12, True)
-        self.large_font = pygame.font.SysFont("Arial", 40, True)
+        # self.small_font = pygame.font.Font("./assets/fonts/control-freak/CONTF___.ttf", 14)
+        # self.large_font = pygame.font.Font("./assets/fonts/control-freak/CONTF___.ttf", 40)
+
+        # self.small_font = pygame.font.Font("./assets/fonts/dynamic/dynamic.ttf", 14)
+        # self.large_font = pygame.font.Font("./assets/fonts/dynamic/dynamic.ttf", 40)
+
+        self.small_font = pygame.font.Font("./assets/fonts/recharge/recharge bd.ttf", 14)
+        self.large_font = pygame.font.Font("./assets/fonts/recharge/recharge bd.ttf", 40)
