@@ -28,7 +28,7 @@ class Button(Component):
         self.button_surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA, 32)
         self.button_surface = self.button_surface.convert_alpha()
 
-        pygame.draw.rect(self.button_surface, self.bg_color, self.button_surface.get_rect(), 1)
+        pygame.draw.rect(self.button_surface, self.bg_color, self.button_surface.get_rect(), 1, 10)
         text = self.font.render(self.label, True, self.fg_color)
 
         text_w, text_h = text.get_size()
