@@ -15,13 +15,7 @@ class Background:
         pass
 
     def update(self, state):
-        self.tick += 1
-        if self.tick > 10:
-            self.tick = 0
-            self.offset += 1
-            if self.offset >= self.grid_size:
-                self.offset = 0
-            self.make_surface(self.bg_surface.get_size())
+        pass
 
     def grid_step(self, start, end, step):
         while start <= end:
