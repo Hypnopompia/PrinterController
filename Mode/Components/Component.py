@@ -2,12 +2,9 @@ import pygame
 
 
 class Component:
-    def __init__(self, x, y, width, height):
-
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
+    def __init__(self, pos, size):
+        (self.x, self.y) = self.pos = pos
+        (self.width, self.height) = self.size = size
 
         self.move_steps = None
 

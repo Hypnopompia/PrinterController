@@ -12,7 +12,7 @@ class ControlMode(Mode):
         self.background = Background((17, 13, 40), (27, 23, 50), 20)  # Dark purple
         self.hud = Hud()
         self.camera = False  # Camera(50, 50, 200, 200, self.state.camera_source)
-        self.button_home = Button(100, 100, 160, 50, "Home", self.state.large_font, (57, 136, 207), (84, 243, 255),
+        self.button_home = Button((100, 100), (160, 50), "Home", self.state.large_font, (57, 136, 207), (84, 243, 255),
                                   self.button_home_on_click)
 
         self.components = []

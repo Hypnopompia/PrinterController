@@ -5,8 +5,8 @@ from .. import Component
 
 
 class Camera(Component):
-    def __init__(self, x, y, width, height, source):
-        super().__init__(x, y, width, height)
+    def __init__(self, pos, size, source):
+        super().__init__(pos, size)
         self.state = None
         self.videoStream = ThreadedCamera(source)
 
