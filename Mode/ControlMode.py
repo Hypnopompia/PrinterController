@@ -9,10 +9,10 @@ class ControlMode(Mode):
     def __init__(self, state, printer):
         super().__init__(state, printer)
 
-        self.background = Background((60, 0, 0))
+        self.background = Background((17, 13, 40), (27, 23, 50), 20)  # Dark purple
         self.hud = Hud()
         self.camera = False  # Camera(50, 50, 200, 200, self.state.camera_source)
-        self.button_home = Button(100, 100, 160, 50, "Home", self.state.large_font, pygame.Color("darkorange2"), pygame.Color("firebrick2"),
+        self.button_home = Button(100, 100, 160, 50, "Home", self.state.large_font, (57, 136, 207), (84, 243, 255),
                                   self.button_home_on_click)
 
         self.components = []
@@ -55,7 +55,7 @@ class ControlMode(Mode):
         for component in self.components:
             component.render(surface)
 
-        text = self.state.large_font.render("Control", True, pygame.Color("orange"))
+        text = self.state.large_font.render("Control", True, (57, 136, 207))
         surface_w, surface_h = surface.get_size()
         text_w, text_h = text.get_size()
         x = (surface_w // 2) - (text_w // 2)
