@@ -14,17 +14,22 @@ class ControlMode(Mode):
         self.camera = False  # Camera(50, 50, 200, 200, self.state.camera_source)
         self.button_home = Button((100, 100), (160, 50), "Home", self.state.large_font, (57, 136, 207), (84, 243, 255),
                                   self.button_home_on_click)
-
+        self.button_quit = Button((100, 160), (160, 50), "Quit", self.state.large_font, (57, 136, 207), (84, 243, 255),
+                                  self.button_quit_on_click)
         self.components = []
         self.components.append(self.background)
         self.components.append(self.hud)
         # self.components.append(self.camera)
         self.components.append(self.button_home)
+        self.components.append(self.button_quit)
 
         self.camera_direction = False
 
     def button_home_on_click(self):
         self.home_printer()
+
+    def button_quit_on_click(self):
+        self.quit_requested()
 
     def process_event(self, event):
         if event.type == pygame.KEYDOWN:
