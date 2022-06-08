@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+cd ~/PrinterController/
 while :
 do
 	git pull
