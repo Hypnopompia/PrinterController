@@ -5,20 +5,19 @@ class ProgressBar:
     def __init__(self, state, pos, size):
         self.text = None
         self.state = state
-        self.progress = 0
+        self.progress = None
         self.x, self.y = self.pos = pos
         self.width, self.height = self.size = size
 
+        self.set_progress(0)
+
     def set_progress(self, progress):
-        update = False
-        if progress is not None:
-            if progress != self.progress:
-                update = True
+        if progress is None:
+            progress = 0
+
+        if progress != self.progress:
             self.progress = progress
-            if update:
-                self.text = self.state.fonts['small'].render(str(int(self.progress)) + "%", True, (255, 255, 255))
-        else:
-            self.progress = 0
+            self.text = self.state.fonts['small'].render(str(int(self.progress)) + "%", True, (255, 255, 255))
 
     def process_event(self, event):
         pass
