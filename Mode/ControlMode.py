@@ -11,7 +11,7 @@ class ControlMode(Mode):
 
         self.background = Background(self.state, (17, 13, 40), (27, 23, 50), 20)  # Dark purple
         self.hud = Hud(self.state)
-        self.camera = False  # Camera(50, 50, 200, 200, self.state.camera_source)
+        self.camera = Camera(self.state, (350, 100), (400, 400), self.state.camera_source)
         self.button_home = Button(self.state, (100, 100), (160, 50), "Home", self.state.fonts['large'], (57, 136, 207), (84, 243, 255),
                                   self.button_home_on_click)
         self.button_quit = Button(self.state, (100, 160), (160, 50), "Quit", self.state.fonts['large'], (57, 136, 207), (84, 243, 255),
@@ -23,7 +23,7 @@ class ControlMode(Mode):
         self.components.append(self.background)
         self.components.append(self.hud)
         self.components.append(self.progress_bar)
-        # self.components.append(self.camera)
+        self.components.append(self.camera)
         self.components.append(self.button_home)
         self.components.append(self.button_quit)
 
@@ -46,14 +46,14 @@ class ControlMode(Mode):
             component.process_event(event)
 
     def update(self):
-        if self.camera:
-            if not self.camera.is_moving():
-                if self.camera_direction:
-                    self.camera_direction = False
-                    self.camera.move_to(400, 200, 2, 2, tween.easeInOutQuint, tween.easeInOutQuint)
-                else:
-                    self.camera_direction = True
-                    self.camera.move_to(50, 50, 2, 2, tween.easeInOutQuint, tween.easeInOutQuint)
+        # if self.camera:
+        #     if not self.camera.is_moving():
+        #         if self.camera_direction:
+        #             self.camera_direction = False
+        #             self.camera.move_to(400, 200, 2, 2, tween.easeInOutQuint, tween.easeInOutQuint)
+        #         else:
+        #             self.camera_direction = True
+        #             self.camera.move_to(50, 50, 2, 2, tween.easeInOutQuint, tween.easeInOutQuint)
 
         for component in self.components:
             component.update()
