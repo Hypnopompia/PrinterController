@@ -4,12 +4,13 @@ import pygame
 class ProgressBar:
     def __init__(self, state, pos, size):
         self.state = state
-        self.progress = .2
+        self.progress = 0
         self.x, self.y = self.pos = pos
         self.width, self.height = self.size = size
 
     def set_progress(self, progress: int):
-        self.progress = progress / 100
+        if progress > 0:
+            self.progress = progress / 100
 
     def process_event(self, event):
         pass
