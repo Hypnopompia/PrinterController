@@ -5,6 +5,8 @@ import json
 
 class ThreadedWebSocket():
     def __init__(self, state):
+        self.progress = None
+        self.state_text = None
         self.state = state
         self.ws = websocket.WebSocketApp("ws://" + self.state.octoprint_host + "/sockjs/websocket",
                                          on_open=self.on_open,
@@ -31,8 +33,12 @@ class ThreadedWebSocket():
             current = message_json["current"]
             if "temps" in current and len(current["temps"]) > 0:
                 temps = current["temps"][0]
-                self.current_tool_temp = temps["tool0"]["actual"]
-                self.current_bed_temp = temps["bed"]["actual"]
+                self.state.tool_temp = temps["tool0"]["actual"]
+                self.state.bed_temp = temps["bed"]["actual"]
+            if "state" in current:
+                self.state.status_text = current["state"]["text"]
+            if "progress" in current:
+                self.state.print_progress = current["progress"]["completion"]
 
     def on_error(self, ws, error):
         print(error)

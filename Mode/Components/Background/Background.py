@@ -2,8 +2,8 @@ import pygame.draw_py
 
 
 class Background:
-    def __init__(self, bg_color, fg_color, grid_size):
-        super().__init__()
+    def __init__(self, state, bg_color, fg_color, grid_size):
+        self.state = state
         self.bg_color = bg_color
         self.fg_color = fg_color
         self.grid_size = grid_size
@@ -14,7 +14,7 @@ class Background:
     def process_event(self, event):
         pass
 
-    def update(self, state):
+    def update(self):
         pass
 
     def grid_step(self, start, end, step):

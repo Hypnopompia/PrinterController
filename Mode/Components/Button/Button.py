@@ -4,8 +4,8 @@ from Mode.Components import Component
 
 
 class Button(Component):
-    def __init__(self, pos, size, label, font, fg_color, bg_color, on_click):
-        super().__init__(pos, size)
+    def __init__(self, state, pos, size, label, font, fg_color, bg_color, on_click):
+        super().__init__(state, pos, size)
         self.label = label
         self.font = font
         self.fg_color = fg_color
@@ -19,7 +19,7 @@ class Button(Component):
             if event.button == 1 and self.is_mouse_over(event.pos):
                 self.on_click()
 
-    def update(self, state):
+    def update(self):
         # if self.is_mouse_over():
         #     self.current_color = self.color_hover
         pass

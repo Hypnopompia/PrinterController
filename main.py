@@ -12,6 +12,7 @@ class PrinterController:
 
         pygame.init()
         self.state = State()
+        self.state.init_fonts()
 
         if platform == "linux" or platform == "linux2":
             # https://github.com/MobilityLab/TransitScreen/wiki/Raspberry-Pi
@@ -50,12 +51,8 @@ class PrinterController:
             self.mode.process_event(event)
 
     def update(self):
-        self.state.status_text = self.printer.get_status()
         self.state.current_fps = int(self.clock.get_fps())
-        self.state.tool_temp = self.printer_info.get_tool_temp()
-        self.state.bed_temp = self.printer_info.get_bed_temp()
-
-        self.mode.update(self.state)
+        self.mode.update()
 
     def render(self):
         if self.mode is not None:

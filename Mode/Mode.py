@@ -18,7 +18,7 @@ class Mode:
     def process_event(self, event):
         raise NotImplementedError()
 
-    def update(self, state):
+    def update(self):
         raise NotImplementedError()
 
     def render(self, window):

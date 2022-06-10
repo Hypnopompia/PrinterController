@@ -2,7 +2,8 @@ import pygame
 
 
 class Component:
-    def __init__(self, pos, size):
+    def __init__(self, state, pos, size):
+        self.state = state
         (self.x, self.y) = self.pos = pos
         (self.width, self.height) = self.size = size
 
