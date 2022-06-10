@@ -8,8 +8,8 @@ class ProgressBar:
         self.x, self.y = self.pos = pos
         self.width, self.height = self.size = size
 
-    def set_progress(self, progress: int):
-        if progress > 0:
+    def set_progress(self, progress):
+        if progress is not None and progress > 0:
             self.progress = progress / 100
 
     def process_event(self, event):
