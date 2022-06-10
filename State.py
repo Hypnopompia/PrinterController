@@ -16,6 +16,7 @@ class State:
     current_fps: int = 0
     status_text: str = "Initializing"
     print_progress: int = 0
+    filename: str = ""
     preheating: bool = False
     octoprint_host: str = "ender3.local"
     octoprint_port: int = 80

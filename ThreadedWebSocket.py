@@ -37,6 +37,9 @@ class ThreadedWebSocket():
                 self.state.bed_temp = temps["bed"]["actual"]
             if "state" in current:
                 self.state.status_text = current["state"]["text"]
+            if "job" in current:
+                job = current["job"]
+                self.state.filename = job['file']['display']
             if "progress" in current:
                 self.state.print_progress = current["progress"]["completion"]
 

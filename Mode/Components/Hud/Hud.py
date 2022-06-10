@@ -3,6 +3,7 @@ import pygame
 
 class Hud:
     def __init__(self, state):
+        self.file = None
         self.state = state
         self.fps = None
         self.tool_temp = None
@@ -18,6 +19,7 @@ class Hud:
         self.tool_temp = "Tool Temp: " + str(self.state.tool_temp) + "ºC"
         self.bed_temp = "Bed Temp: " + str(self.state.bed_temp) + "ºC"
         self.status = "Status: " + str(self.state.status_text)
+        self.file = "File: " + str(self.state.filename)
 
     def render(self, surface):
         fps_text = self.state.fonts['small'].render(self.fps, True, pygame.Color("white"))
@@ -34,4 +36,5 @@ class Hud:
             bed_temp_text = self.state.fonts['small'].render(self.bed_temp, True, pygame.Color("white"))
             surface.blit(bed_temp_text, (10, 55))
 
-
+        filename_text = self.state.fonts['small'].render(self.file, True, pygame.Color("white"))
+        surface.blit(filename_text, (10, 70))
