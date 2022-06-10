@@ -9,8 +9,10 @@ class ProgressBar:
         self.width, self.height = self.size = size
 
     def set_progress(self, progress):
-        if progress is not None and progress > 0:
-            self.progress = progress / 100
+        if progress is not None:
+            self.progress = progress
+        else:
+            self.progress = 0
 
     def process_event(self, event):
         pass
@@ -19,7 +21,8 @@ class ProgressBar:
         pass
 
     def render(self, surface):
-        width = int(self.width * self.progress)
+        width = int(self.width * (self.progress / 100))
         pygame.draw.rect(surface, (57, 136, 207), pygame.Rect(self.x, self.y, self.width, self.height), 1)
-        pygame.draw.rect(surface, (57, 136, 207), pygame.Rect(self.x, self.y, width, self.height))
+        if (self.progress > 0):
+            pygame.draw.rect(surface, (57, 136, 207), pygame.Rect(self.x, self.y, width, self.height))
 
