@@ -12,9 +12,9 @@ class ControlMode(Mode):
         self.background = Background(self.state, (17, 13, 40), (27, 23, 50), 20)  # Dark purple
         self.hud = Hud(self.state)
         # self.camera = Camera(self.state, (350, 100), (400, 400), self.state.camera_source)
-        self.button_home = Button(self.state, (100, 100), (160, 50), "Home", self.state.fonts['large'], (57, 136, 207), (84, 243, 255),
+        self.button_home = Button(self.state, (100, 200), (160, 50), "Home", self.state.fonts['large'], (57, 136, 207), (84, 243, 255),
                                   self.button_home_on_click)
-        self.button_quit = Button(self.state, (100, 160), (160, 50), "Quit", self.state.fonts['large'], (57, 136, 207), (84, 243, 255),
+        self.button_quit = Button(self.state, (100, 260), (160, 50), "Quit", self.state.fonts['large'], (57, 136, 207), (84, 243, 255),
                                   self.button_quit_on_click)
 
         self.progress_bar = ProgressBar(self.state, (10, 450), (self.state.window_width - 20, 20))

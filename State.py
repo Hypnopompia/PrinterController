@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Dict
+import datetime
 
 import pygame.font
 
@@ -16,6 +16,9 @@ class State:
     current_fps: int = 0
     status_text: str = "Initializing"
     print_progress: int = 0
+    est_print_time: int = 0
+    print_time: int = 0
+    print_time_left: int = 0
     filename: str = ""
     preheating: bool = False
     octoprint_host: str = "ender3.local"
@@ -29,3 +32,12 @@ class State:
     def init_fonts(self):
         self.fonts['small'] = pygame.font.Font("./assets/fonts/recharge/recharge.ttf", 14)
         self.fonts['large'] = pygame.font.Font("./assets/fonts/recharge/recharge.ttf", 40)
+
+    def get_est_print_time(self):
+        return str(datetime.timedelta(seconds=self.est_print_time))
+
+    def get_print_time(self):
+        return str(datetime.timedelta(seconds=self.print_time))
+
+    def get_print_time_left(self):
+        return str(datetime.timedelta(seconds=self.print_time_left))
