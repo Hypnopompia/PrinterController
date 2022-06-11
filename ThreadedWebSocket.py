@@ -34,7 +34,9 @@ class ThreadedWebSocket():
             if "temps" in current and len(current["temps"]) > 0:
                 temps = current["temps"][0]
                 self.state.tool_temp = temps["tool0"]["actual"]
+                self.state.tool_target_temp = temps["tool0"]["target"]
                 self.state.bed_temp = temps["bed"]["actual"]
+                self.state.bed_target_temp = temps["bed"]["target"]
             if "state" in current:
                 self.state.status_text = current["state"]["text"]
             if "job" in current:

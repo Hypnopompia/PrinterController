@@ -3,4 +3,5 @@ from .Background import Background
 from .Button import Button
 from .Camera import Camera
 from .Hud import Hud
-from .ProgressBar import ProgressBar
+from .PrintProgressBar import PrintProgressBar
+from .TextComponent import TextComponent

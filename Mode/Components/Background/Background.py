@@ -2,11 +2,11 @@ import pygame.draw_py
 
 
 class Background:
-    def __init__(self, state, bg_color, fg_color, grid_size):
+    def __init__(self, state):
         self.state = state
-        self.bg_color = bg_color
-        self.fg_color = fg_color
-        self.grid_size = grid_size
+        self.bg_color = self.state.colors['background']
+        self.fg_color = self.state.colors['background_line']
+        self.grid_size = 20
         self.offset = 0
         self.tick = 0
         self.bg_surface = None
