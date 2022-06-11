@@ -39,15 +39,15 @@ class ThreadedWebSocket():
                 self.state.status_text = current["state"]["text"]
             if "job" in current:
                 job = current["job"]
-                self.state.est_print_time = job["estimatedPrintTime"] or 0
+                self.state.est_print_time = int(job["estimatedPrintTime"] or 0)
                 if "file" in job and "display" in job["file"]:
                     file = job["file"]
                     self.state.filename = file["display"]
             if "progress" in current:
                 progress = current["progress"] or 0
                 self.state.print_progress = progress["completion"] or 0
-                self.state.print_time = progress["printTime"] or 0
-                self.state.print_time_left = progress["printTimeLeft"] or 0
+                self.state.print_time = int(progress["printTime"] or 0)
+                self.state.print_time_left = int(progress["printTimeLeft"] or 0)
             if "currentZ" in current:
                 self.state.current_z = current["currentZ"] or 0
 
