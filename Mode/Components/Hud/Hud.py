@@ -3,6 +3,7 @@ import pygame
 
 class Hud:
     def __init__(self, state):
+        self.z_index = None
         self.print_time_left = None
         self.print_time = None
         self.est_print_time = None
@@ -26,34 +27,39 @@ class Hud:
         self.est_print_time = "Estimated Print Time: " + self.state.get_est_print_time()
         self.print_time = "Print Time: " + self.state.get_print_time()
         self.print_time_left = "Print Time Left: " + self.state.get_print_time_left()
+        self.z_index = "Z Index: " + str(self.state.current_z)
 
     def render(self, surface):
         y = 80
         x = 20
 
-        fps_text = self.state.fonts['small'].render(self.fps, True, pygame.Color("white"))
+        fps_text = self.state.fonts['small'].render(self.fps, True, self.state.colors['text'])
         surface.blit(fps_text, (x, y))
         y += 15
 
-        status_text = self.state.fonts['small'].render(self.status, True, pygame.Color("white"))
+        status_text = self.state.fonts['small'].render(self.status, True, self.state.colors['text'])
         surface.blit(status_text, (x, y))
         y += 15
 
         if self.state.tool_temp > 0:
-            tool_temp_text = self.state.fonts['small'].render(self.tool_temp, True, pygame.Color("white"))
+            tool_temp_text = self.state.fonts['small'].render(self.tool_temp, True, self.state.colors['text'])
             surface.blit(tool_temp_text, (x, y))
             y += 15
 
         if self.state.bed_temp > 0:
-            bed_temp_text = self.state.fonts['small'].render(self.bed_temp, True, pygame.Color("white"))
+            bed_temp_text = self.state.fonts['small'].render(self.bed_temp, True, self.state.colors['text'])
             surface.blit(bed_temp_text, (x, y))
             y += 15
 
         if self.state.filename != "":
-            filename_text = self.state.fonts['small'].render(self.file, True, pygame.Color("white"))
+            filename_text = self.state.fonts['small'].render(self.file, True, self.state.colors['text'])
             surface.blit(filename_text, (x, y))
             y += 15
 
-        est_print_time_text = self.state.fonts['small'].render(self.est_print_time, True, pygame.Color("white"))
+            est_print_time_text = self.state.fonts['small'].render(self.est_print_time, True, self.state.colors['text'])
+            surface.blit(est_print_time_text, (x, y))
+            y += 15
+
+        est_print_time_text = self.state.fonts['small'].render(self.z_index, True, self.state.colors['text'])
         surface.blit(est_print_time_text, (x, y))
         y += 15
