@@ -59,10 +59,12 @@ class Hud:
         surface.blit(est_print_time_text, (10, y))
         y += 15
 
-        print_time_text = self.state.fonts['small'].render(self.print_time, True, pygame.Color("white"))
-        surface.blit(print_time_text, (10, y))
-        y += 15
+        if self.state.print_time > 0:
+            print_time_text = self.state.fonts['small'].render(self.print_time, True, pygame.Color("white"))
+            surface.blit(print_time_text, (10, y))
+            y += 15
 
-        print_time_left_text = self.state.fonts['small'].render(self.print_time_left, True, pygame.Color("white"))
-        surface.blit(print_time_left_text, (10, y))
-        y += 15
+        if self.state.print_time_left > 0:
+            print_time_left_text = self.state.fonts['small'].render(self.print_time_left, True, pygame.Color("white"))
+            surface.blit(print_time_left_text, (10, y))
+            y += 15
