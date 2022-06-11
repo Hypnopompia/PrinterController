@@ -34,7 +34,7 @@ class PrintProgressBar:
         elapsed_time = TextComponent.TextComponent(self.state, pos=(self.x + 10, self.y), width=90, text=self.state.get_print_time())
         elapsed_time.render(surface)
 
-        print_time_left = TextComponent.TextComponent(self.state, pos=(self.x + self.width - 90, self.y), width=90, text=self.state.get_print_time_left())
+        print_time_left = TextComponent.TextComponent(self.state, pos=(self.x + self.width - 90, self.y), width=90, text="-" + self.state.get_print_time_left())
         print_time_left.render(surface)
 
         pygame.draw.rect(surface, self.state.colors['infill'], pygame.Rect(self.x + 100, self.y, width, self.height))  # Infill
