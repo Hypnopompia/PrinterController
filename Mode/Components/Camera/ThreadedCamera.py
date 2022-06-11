@@ -25,7 +25,7 @@ class ThreadedCamera(object):
                 self.capture.grab()  # grab frames and throw them away (skips any processing, so it's faster than read())
 
                 # This decreases the displayed frame rate of the camera and does the surface processing in this thread
-                if time.process_time() > (self.last_frame_time + 0.033):  # about 30fps
+                if time.process_time() > (self.last_frame_time + 0.066):  # about 15fps
                     (status, video_frame) = self.capture.read()
                     if video_frame is not None:
                         self.last_frame_time = time.process_time()
