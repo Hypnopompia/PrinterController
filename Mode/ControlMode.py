@@ -19,7 +19,7 @@ class ControlMode(Mode):
         self.button_quit = Button(self.state, (690, 20), (90, 35), "Quit", self.state.fonts['medium'], (57, 136, 207), (84, 243, 255),
                                   self.button_quit_on_click)
 
-        self.print_progress_bar = PrintProgressBar(self.state, (10, 450), (self.state.window_width - 20, 20))
+        self.print_progress_bar = PrintProgressBar(self.state, (20, 430), (self.state.window_width - 20, 40))
 
         self.components = []
         self.components.append(self.background)
