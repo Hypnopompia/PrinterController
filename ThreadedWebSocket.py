@@ -33,10 +33,10 @@ class ThreadedWebSocket():
             current = message_json["current"]
             if "temps" in current and len(current["temps"]) > 0:
                 temps = current["temps"][0]
-                self.state.tool_temp = temps["tool0"]["actual"]
-                self.state.tool_target_temp = temps["tool0"]["target"]
-                self.state.bed_temp = temps["bed"]["actual"]
-                self.state.bed_target_temp = temps["bed"]["target"]
+                self.state.tool_temp = round(temps["tool0"]["actual"], 1)
+                self.state.tool_target_temp = round(temps["tool0"]["target"], 1)
+                self.state.bed_temp = round(temps["bed"]["actual"], 1)
+                self.state.bed_target_temp = round(temps["bed"]["target"], 1)
             if "state" in current:
                 self.state.status_text = current["state"]["text"]
             if "job" in current:

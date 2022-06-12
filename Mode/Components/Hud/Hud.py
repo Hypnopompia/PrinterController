@@ -20,46 +20,50 @@ class Hud:
 
     def update(self):
         self.fps = "FPS: " + str(self.state.current_fps)
-        self.tool_temp = "Tool Temp: " + str(self.state.tool_temp) + "ºC / " + str(self.state.tool_target_temp) + "ºC"
-        self.bed_temp = "Bed Temp: " + str(self.state.bed_temp) + "ºC / " + str(self.state.bed_target_temp) + "ºC"
-        self.status = "Status: " + str(self.state.status_text)
-        self.file = "File: " + str(self.state.filename)
+        self.tool_temp = "           Tool Temp: " + str(self.state.tool_temp) + "ºC / " + str(
+            self.state.tool_target_temp) + "ºC"
+        self.bed_temp = "            Bed Temp:  " + str(self.state.bed_temp) + "ºC /  " + str(
+            self.state.bed_target_temp) + "ºC"
+        self.status = "              Status: " + str(self.state.status_text)
+        self.file = "                File: " + str(self.state.filename)
         self.est_print_time = "Estimated Print Time: " + self.state.get_est_print_time()
-        self.print_time = "Print Time: " + self.state.get_print_time()
-        self.print_time_left = "Print Time Left: " + self.state.get_print_time_left()
-        self.z_index = "Z Index: " + str(self.state.current_z)
+        self.print_time = "          Print Time: " + self.state.get_print_time()
+        self.print_time_left = "     Print Time Left: " + self.state.get_print_time_left()
+        self.z_index = "             Z-Index: " + str(self.state.current_z)
 
     def render(self, surface):
-        y = 80
+        fps_text = self.state.fonts['small_mono'].render(self.fps, True, self.state.colors['text_light'])
+        surface.blit(fps_text, (5, 5))
+
+        y = 85
         x = 20
+        line_offset = 20
 
-        fps_text = self.state.fonts['small'].render(self.fps, True, self.state.colors['text_light'])
-        surface.blit(fps_text, (x, y))
-        y += 15
-
-        status_text = self.state.fonts['small'].render(self.status, True, self.state.colors['text_light'])
+        status_text = self.state.fonts['small_mono'].render(self.status, True, self.state.colors['text_light'])
         surface.blit(status_text, (x, y))
-        y += 15
+        y += line_offset
 
         if self.state.tool_temp > 0:
-            tool_temp_text = self.state.fonts['small'].render(self.tool_temp, True, self.state.colors['text_light'])
+            tool_temp_text = self.state.fonts['small_mono'].render(self.tool_temp, True,
+                                                                   self.state.colors['text_light'])
             surface.blit(tool_temp_text, (x, y))
-            y += 15
+            y += line_offset
 
         if self.state.bed_temp > 0:
-            bed_temp_text = self.state.fonts['small'].render(self.bed_temp, True, self.state.colors['text_light'])
+            bed_temp_text = self.state.fonts['small_mono'].render(self.bed_temp, True, self.state.colors['text_light'])
             surface.blit(bed_temp_text, (x, y))
-            y += 15
+            y += line_offset
 
         if self.state.filename != "":
-            filename_text = self.state.fonts['small'].render(self.file, True, self.state.colors['text_light'])
+            filename_text = self.state.fonts['small_mono'].render(self.file, True, self.state.colors['text_light'])
             surface.blit(filename_text, (x, y))
-            y += 15
+            y += line_offset
 
-            est_print_time_text = self.state.fonts['small'].render(self.est_print_time, True, self.state.colors['text_light'])
+            est_print_time_text = self.state.fonts['small_mono'].render(self.est_print_time, True,
+                                                                        self.state.colors['text_light'])
             surface.blit(est_print_time_text, (x, y))
-            y += 15
+            y += line_offset
 
-        est_print_time_text = self.state.fonts['small'].render(self.z_index, True, self.state.colors['text_light'])
+        est_print_time_text = self.state.fonts['small_mono'].render(self.z_index, True, self.state.colors['text_light'])
         surface.blit(est_print_time_text, (x, y))
-        y += 15
+        y += line_offset
