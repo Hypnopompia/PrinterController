@@ -34,9 +34,15 @@ class State:
     current_z: int = 0
 
     def init_fonts(self):
-        self.fonts['small'] = pygame.font.Font("./assets/fonts/recharge/recharge.ttf", 14)
-        self.fonts['medium'] = pygame.font.Font("./assets/fonts/recharge/recharge.ttf", 25)
-        self.fonts['large'] = pygame.font.Font("./assets/fonts/recharge/recharge.ttf", 40)
+        font = "./assets/fonts/recharge/recharge.ttf"
+        self.fonts['small'] = pygame.font.Font(font, 14)
+        self.fonts['medium'] = pygame.font.Font(font, 25)
+        self.fonts['large'] = pygame.font.Font(font, 40)
+
+        mono_font = "./assets/fonts/unispace/unispace bd.ttf"
+        self.fonts['small_mono'] = pygame.font.Font(mono_font, 14)
+        self.fonts['medium_mono'] = pygame.font.Font(mono_font, 25)
+        self.fonts['large_mono'] = pygame.font.Font(mono_font, 40)
 
         self.colors['background'] = (0, 36, 57)
         self.colors['background_line'] = (0, 60, 72)

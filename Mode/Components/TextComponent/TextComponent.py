@@ -20,6 +20,11 @@ class TextComponent:
     def update(self):
         pass
 
+    def set_text(self, text):
+        if text != self.text:
+            self.text = text
+            self.surface = None
+
     def make_surface(self):
         offset = 1
         if self.font == "medium":
