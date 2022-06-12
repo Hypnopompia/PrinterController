@@ -6,6 +6,7 @@ class TextComponent:
         self.state = state
         self.x, self.y = self.pos = pos
         self.width = width
+        self.text_width = self.width
         self.text = text
         self.font = font
         self.align = align
@@ -21,14 +22,11 @@ class TextComponent:
 
     def make_surface(self):
         offset = 1
+        if self.font == "medium":
+            offset = 2
         if self.font == "large":
             offset = 3
         text = self.state.fonts[self.font].render(self.text, True, self.state.colors[self.color])
-
-        if not self.highlight:
-            self.surface = text
-            return
-
         highlight = self.state.fonts[self.font].render(self.text, True, self.state.colors[self.color + "_highlight"])
 
         self.surface = pygame.Surface((text.get_width() + offset, text.get_height() + offset), pygame.SRCALPHA, 32)
@@ -36,11 +34,19 @@ class TextComponent:
         self.surface.blit(highlight, (offset, offset))
         self.surface.blit(text, (0, 0))
 
+        self.text_width = self.surface.get_width()
+
+        if self.align == "left":
+            self.text_x = self.x
         if self.align == "center":
-            self.x = (self.width // 2) - (self.surface.get_width() // 2)
+            self.text_x = (self.width // 2) - (self.text_width // 2)
+        elif self.align == "right":
+            self.text_x = self.x + self.width - self.text_width
 
     def render(self, surface):
         if self.surface is None:
             self.make_surface()
 
-        surface.blit(self.surface, (self.x, self.y))
+        # pygame.draw.rect(surface, self.state.colors['border'], pygame.Rect(self.x, self.y, self.width, self.surface.get_height()), 1)
+
+        surface.blit(self.surface, (self.text_x, self.y))

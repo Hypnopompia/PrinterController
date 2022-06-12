@@ -45,6 +45,7 @@ class State:
         self.colors['text'] = (120, 204, 226)
         self.colors['text_highlight'] = (128, 128, 128)
         self.colors['text_light'] = (228, 239, 240)
+        self.colors['text_light_highlight'] = (128, 128, 128)
 
     def get_est_print_time(self):
         return str(datetime.timedelta(seconds=self.est_print_time))
