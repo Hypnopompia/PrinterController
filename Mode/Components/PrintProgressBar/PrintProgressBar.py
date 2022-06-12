@@ -30,8 +30,8 @@ class PrintProgressBar:
             self.progress = progress
             # redraw the progress bar surface here
 
-            if self.percent_text != str(int(self.progress)) + "%":
-                self.percent_text = str(int(self.progress)) + "%"
+            if self.percent_text != str(round(self.progress, 1)) + "%":
+                self.percent_text = str(round(self.progress, 1)) + "%"
                 self.percent_text_surface = TextComponent(state=self.state,
                                                                         pos=(self.x, self.y + self.height),
                                                                         width=self.width,
