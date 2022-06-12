@@ -12,7 +12,7 @@ class ControlMode(Mode):
         self.background = Background(self.state)  # Dark purple
         self.title = TextComponent(self.state, pos=(0, 15), width=self.state.window_width, text="Ender 3 v2", font='large', color="text", align="center", highlight=True)
         self.hud = Hud(self.state)
-        self.camera = Camera(self.state, (450, 100), (300, 300), self.state.camera_source)
+        # self.camera = Camera(self.state, (450, 100), (300, 300), self.state.camera_source)
 
         self.button_home = Button(self.state, (100, 200), (160, 50), "Home", self.state.fonts['large'], (57, 136, 207), (84, 243, 255),
                                   self.button_home_on_click)
@@ -26,7 +26,7 @@ class ControlMode(Mode):
         self.components.append(self.title)
         self.components.append(self.hud)
         self.components.append(self.print_progress_bar)
-        self.components.append(self.camera)
+        # self.components.append(self.camera)
         # self.components.append(self.button_home)
         self.components.append(self.button_quit)
 
