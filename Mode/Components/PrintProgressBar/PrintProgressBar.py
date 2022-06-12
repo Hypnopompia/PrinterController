@@ -32,12 +32,14 @@ class PrintProgressBar:
 
             if self.percent_text != str(round(self.progress, 1)) + "%":
                 self.percent_text = str(round(self.progress, 1)) + "%"
-                self.percent_text_surface = TextComponent(state=self.state,
-                                                                        pos=(self.x, self.y + self.height),
-                                                                        width=self.width,
-                                                                        text=self.percent_text,
-                                                                        font="medium_mono",
-                                                                        align="center")
+                self.percent_text_surface = TextComponent(
+                    state=self.state,
+                    pos=(self.x, self.y + self.height),
+                    width=self.width,
+                    text=self.percent_text,
+                    font="medium_mono",
+                    align="center"
+                )
 
     def set_elapsed_time(self, elapsed_time):
         if elapsed_time is None:
@@ -45,11 +47,13 @@ class PrintProgressBar:
 
         if self.elapsed_time != elapsed_time:
             self.elapsed_time = elapsed_time
-            self.elapsed_time_surface = TextComponent(state=self.state,
-                                                                    pos=(self.x + 10, self.y + self.height),
-                                                                    width=200,
-                                                                    text=self.state.get_print_time(),
-                                                                    font="medium_mono")
+            self.elapsed_time_surface = TextComponent(
+                state=self.state,
+                pos=(self.x + 10, self.y + self.height),
+                width=self.width,
+                text=self.state.get_print_time(),
+                font="medium_mono"
+            )
 
     def set_remaining_time(self, remaining_time):
         if remaining_time is None:
@@ -57,14 +61,16 @@ class PrintProgressBar:
 
         if self.remaining_time != remaining_time:
             self.remaining_time = remaining_time
-            self.remaining_time_surface = TextComponent(state=self.state,
-                                                                      pos=(
-                                                                          self.x + self.width - 210,
-                                                                          self.y + self.height),
-                                                                      width=200,
-                                                                      text="-" + self.state.get_print_time_left(),
-                                                                      font="medium_mono",
-                                                                      align="right")
+            self.remaining_time_surface = TextComponent(
+                state=self.state,
+                pos=(
+                    self.x,
+                    self.y + self.height),
+                width=self.width - 10,
+                text="-" + self.state.get_print_time_left(),
+                font="medium_mono",
+                align="right"
+            )
 
     def process_event(self, event):
         pass
