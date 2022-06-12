@@ -30,14 +30,14 @@ class PrintProgressBar:
             self.progress = progress
             # redraw the progress bar surface here
 
-        if self.percent_text != str(int(self.progress)) + "%":
-            self.percent_text = str(int(self.progress)) + "%"
-            self.percent_text_surface = TextComponent(state=self.state,
-                                                                    pos=(self.x, self.y + self.height),
-                                                                    width=self.width,
-                                                                    text=self.percent_text,
-                                                                    font="medium_mono",
-                                                                    align="center")
+            if self.percent_text != str(int(self.progress)) + "%":
+                self.percent_text = str(int(self.progress)) + "%"
+                self.percent_text_surface = TextComponent(state=self.state,
+                                                                        pos=(self.x, self.y + self.height),
+                                                                        width=self.width,
+                                                                        text=self.percent_text,
+                                                                        font="medium_mono",
+                                                                        align="center")
 
     def set_elapsed_time(self, elapsed_time):
         if elapsed_time is None:
