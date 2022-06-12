@@ -10,7 +10,7 @@ class ControlMode(Mode):
         super().__init__(state, printer)
 
         self.background = Background(self.state)  # Dark purple
-        self.title = TextComponent(self.state, pos=(0, 15), width=self.state.window_width, text="Control", font='large', color="text", align="center", highlight=True)
+        self.title = TextComponent(self.state, pos=(0, 15), width=self.state.window_width, text="Ender 3 v2", font='large', color="text", align="center", highlight=True)
         self.hud = Hud(self.state)
         self.camera = Camera(self.state, (450, 100), (300, 300), self.state.camera_source)
 
