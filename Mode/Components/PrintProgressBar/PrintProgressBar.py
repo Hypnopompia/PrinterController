@@ -49,7 +49,7 @@ class PrintProgressBar:
             self.elapsed_time = elapsed_time
             self.elapsed_time_surface = TextComponent(
                 state=self.state,
-                pos=(self.x + 10, self.y + self.height),
+                pos=(self.x, self.y + self.height),
                 width=self.width,
                 text=self.state.get_print_time(),
                 font="medium_mono"
@@ -66,7 +66,7 @@ class PrintProgressBar:
                 pos=(
                     self.x,
                     self.y + self.height),
-                width=self.width - 10,
+                width=self.width,
                 text="-" + self.state.get_print_time_left(),
                 font="medium_mono",
                 align="right"
@@ -78,7 +78,8 @@ class PrintProgressBar:
     def update(self):
         self.set_progress(self.state.print_progress)
         self.set_elapsed_time(self.state.print_time)
-        self.set_remaining_time(self.state.print_time_left)
+        # self.set_remaining_time(self.state.print_time_left)
+        self.set_remaining_time(3000)
 
     def render(self, surface):
         width = int(self.width * (self.progress / 100))

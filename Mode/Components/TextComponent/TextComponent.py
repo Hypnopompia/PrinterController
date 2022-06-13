@@ -3,6 +3,7 @@ import pygame
 
 class TextComponent:
     def __init__(self, state, pos, width, text, font="small", color="text_light", align="left", highlight=False):
+        self.text_x = None
         self.state = state
         self.x, self.y = self.pos = pos
         self.width = width
@@ -46,12 +47,13 @@ class TextComponent:
         if self.align == "center":
             self.text_x = (self.width // 2) - (self.text_width // 2)
         elif self.align == "right":
-            self.text_x = self.x + self.width - self.text_width
+            self.text_x = self.width - self.text_width
 
     def render(self, surface):
         if self.surface is None:
             self.make_surface()
 
         # pygame.draw.rect(surface, self.state.colors['border'], pygame.Rect(self.x, self.y, self.width, self.surface.get_height()), 1)
+        # pygame.draw.rect(surface, (255, 0, 0), pygame.Rect(self.x + self.text_x, self.y, self.surface.get_width(), self.surface.get_height()), 1)
 
-        surface.blit(self.surface, (self.text_x, self.y))
+        surface.blit(self.surface, (self.x + self.text_x, self.y))

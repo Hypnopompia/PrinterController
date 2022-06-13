@@ -22,10 +22,11 @@ class State:
     camera_source: str = "http://ender3.local/webcam/?action=stream"
     # Printer
     status_text: str = "Initializing"
-    tool_temp: int = 0
-    tool_target_temp: int = 0
-    bed_temp: int = 0
-    bed_target_temp: int = 0
+    temps: dict = field(default_factory=dict)
+    # tool_temp: int = 0
+    # tool_target_temp: int = 0
+    # bed_temp: int = 0
+    # bed_target_temp: int = 0
     print_progress: int = 0
     est_print_time: int = 0
     print_time: int = 0
@@ -52,6 +53,16 @@ class State:
         self.colors['text_highlight'] = (128, 128, 128)
         self.colors['text_light'] = (228, 239, 240)
         self.colors['text_light_highlight'] = (128, 128, 128)
+
+        self.temps['tool'] = {
+            "actual": 0,
+            "target": 0
+        }
+
+        self.temps['bed'] = {
+            "actual": 0,
+            "target": 0
+        }
 
     def get_est_print_time(self):
         return str(datetime.timedelta(seconds=self.est_print_time))

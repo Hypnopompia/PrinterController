@@ -20,10 +20,10 @@ class Hud:
 
     def update(self):
         self.fps = "FPS: " + str(self.state.current_fps)
-        self.tool_temp = "           Tool Temp: " + str(self.state.tool_temp) + "ºC / " + str(
-            self.state.tool_target_temp) + "ºC"
-        self.bed_temp = "            Bed Temp:  " + str(self.state.bed_temp) + "ºC /  " + str(
-            self.state.bed_target_temp) + "ºC"
+        self.tool_temp = "           Tool Temp: " + str(self.state.temps['tool']['actual']) + "ºC / " + str(
+            self.state.temps['tool']['target']) + "ºC"
+        self.bed_temp = "            Bed Temp:  " + str(self.state.temps['bed']['actual']) + "ºC /  " + str(
+            self.state.temps['bed']['target']) + "ºC"
         self.status = "              Status: " + str(self.state.status_text)
         self.file = "                File: " + str(self.state.filename)
         self.est_print_time = "Estimated Print Time: " + self.state.get_est_print_time()
@@ -43,13 +43,13 @@ class Hud:
         surface.blit(status_text, (x, y))
         y += line_offset
 
-        if self.state.tool_temp > 0:
+        if self.state.temps['tool']['actual'] > 0:
             tool_temp_text = self.state.fonts['small_mono'].render(self.tool_temp, True,
                                                                    self.state.colors['text_light'])
             surface.blit(tool_temp_text, (x, y))
             y += line_offset
 
-        if self.state.bed_temp > 0:
+        if self.state.temps['bed']['actual'] > 0:
             bed_temp_text = self.state.fonts['small_mono'].render(self.bed_temp, True, self.state.colors['text_light'])
             surface.blit(bed_temp_text, (x, y))
             y += line_offset

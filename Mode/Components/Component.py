@@ -115,7 +115,7 @@ class Component:
     def process_event(self, event):
         raise NotImplementedError()
 
-    def update(self, state):
+    def update(self):
         raise NotImplementedError()
 
     def render(self, surface):
