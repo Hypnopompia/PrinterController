@@ -1,6 +1,6 @@
 import pygame
 
-from Mode.Components.TextComponent import TextComponent
+from Mode.Components.Text import Text
 
 
 class PrintProgressBar:

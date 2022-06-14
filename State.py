@@ -1,12 +1,9 @@
 from dataclasses import dataclass, field
 import datetime
 
-import pygame.font
-
 
 @dataclass
 class State:
-    fonts: dict = field(default_factory=dict)
     colors: dict = field(default_factory=dict)
     running: bool = True
     window_width: int = 800
@@ -34,25 +31,29 @@ class State:
     filename: str = ""
     current_z: int = 0
 
-    def init_fonts(self):
+    def init(self):
         font = "./assets/fonts/recharge/recharge.ttf"
-        self.fonts['small'] = pygame.font.Font(font, 14)
-        self.fonts['medium'] = pygame.font.Font(font, 25)
-        self.fonts['large'] = pygame.font.Font(font, 40)
-
         mono_font = "./assets/fonts/unispace/unispace bd.ttf"
-        self.fonts['small_mono'] = pygame.font.Font(mono_font, 14)
-        self.fonts['medium_mono'] = pygame.font.Font(mono_font, 25)
-        self.fonts['large_mono'] = pygame.font.Font(mono_font, 40)
 
         self.colors['background'] = (0, 36, 57)
         self.colors['background_line'] = (0, 60, 72)
-        self.colors['border'] = (120, 204, 226)
-        self.colors['infill'] = (57, 136, 207)
-        self.colors['text'] = (120, 204, 226)
-        self.colors['text_highlight'] = (128, 128, 128)
-        self.colors['text_light'] = (228, 239, 240)
-        self.colors['text_light_highlight'] = (128, 128, 128)
+
+        self.colors['text'] = (228, 239, 240)
+
+        self.colors['label_text_top'] = (228, 239, 240)
+        self.colors['label_text_bottom'] = (120, 204, 226)
+
+        self.colors['button_border'] = (120, 204, 226)
+        self.colors['button_text_top'] = (228, 239, 240)
+        self.colors['button_text_bottom'] = (120, 204, 226)
+
+        self.colors['temperature_infill'] = (57, 136, 207)
+        self.colors['temperature_border'] = (120, 204, 226)
+        self.colors['temperature_target'] = (255, 0, 0)
+
+        # self.colors['text_highlight'] = (128, 128, 128)
+        # self.colors['text_light'] = (228, 239, 240)
+        # self.colors['text_light_highlight'] = (128, 128, 128)
 
         self.temps['tool'] = {
             "actual": 0,

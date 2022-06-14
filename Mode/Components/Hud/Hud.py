@@ -1,5 +1,7 @@
 import pygame
 
+from Mode.Components.Text import Text
+
 
 class Hud:
     def __init__(self, state):
@@ -32,38 +34,31 @@ class Hud:
         self.z_index = "             Z-Index: " + str(self.state.current_z)
 
     def render(self, surface):
-        fps_text = self.state.fonts['small_mono'].render(self.fps, True, self.state.colors['text_light'])
-        surface.blit(fps_text, (5, 5))
+        font = "regular_mono"
+        Text(self.state, self.fps, font, topleft=(5, 5)).render(surface)
 
         y = 85
         x = 20
         line_offset = 20
 
-        status_text = self.state.fonts['small_mono'].render(self.status, True, self.state.colors['text_light'])
-        surface.blit(status_text, (x, y))
+        Text(self.state, self.status, font, topleft=(x, y)).render(surface)
         y += line_offset
 
         if self.state.temps['tool']['actual'] > 0:
-            tool_temp_text = self.state.fonts['small_mono'].render(self.tool_temp, True,
-                                                                   self.state.colors['text_light'])
-            surface.blit(tool_temp_text, (x, y))
+            Text(self.state, self.tool_temp, font, topleft=(x, y)).render(surface)
             y += line_offset
 
         if self.state.temps['bed']['actual'] > 0:
-            bed_temp_text = self.state.fonts['small_mono'].render(self.bed_temp, True, self.state.colors['text_light'])
-            surface.blit(bed_temp_text, (x, y))
+            Text(self.state, self.bed_temp, font, topleft=(x, y)).render(surface)
             y += line_offset
 
         if self.state.filename != "":
-            filename_text = self.state.fonts['small_mono'].render(self.file, True, self.state.colors['text_light'])
-            surface.blit(filename_text, (x, y))
+            Text(self.state, self.file, font, topleft=(x, y)).render(surface)
             y += line_offset
 
-            est_print_time_text = self.state.fonts['small_mono'].render(self.est_print_time, True,
-                                                                        self.state.colors['text_light'])
-            surface.blit(est_print_time_text, (x, y))
+            Text(self.state, self.est_print_time, font, topleft=(x, y)).render(surface)
             y += line_offset
 
-        est_print_time_text = self.state.fonts['small_mono'].render(self.z_index, True, self.state.colors['text_light'])
-        surface.blit(est_print_time_text, (x, y))
+        Text(self.state, self.z_index, font, topleft=(x, y)).render(surface)
         y += line_offset
+

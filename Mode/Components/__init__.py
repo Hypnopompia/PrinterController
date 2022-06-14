@@ -4,5 +4,5 @@ from .Button import Button
 from .Camera import Camera
 from .Hud import Hud
 from .PrintProgressBar import PrintProgressBar
-from .TextComponent import TextComponent
+from .Text import Text
 from .Temperature import Temperature

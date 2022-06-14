@@ -1,21 +1,27 @@
 import pygame
 
-from Mode.Components import Component, TextComponent
+from Mode.Components import Component, Text
 
 
 class Temperature(Component):
     def __init__(self, state, pos, size, temp_type):
         super().__init__(state, pos, size)
+
+        self.bar_x = self.x + 60
+        self.bar_y = self.y + 40
         self.bar_height = self.height - 40
+
         self.target_temp_y = None
         self.target_temp_height = None
         self.target_temp = None
+
         self.current_temp_height = None
         self.current_temp_y = None
-        self.bar_y = None
+
         self.temp_height = None
         self.temp_percent = None
         self.temp_type = temp_type
+
         self.min_temp = 20
         if self.temp_type == "tool":
             self.max_temp = 200
@@ -27,19 +33,6 @@ class Temperature(Component):
             self.max_temp = 250
 
         self.current_temp = self.min_temp
-
-        self.surface = None
-
-        self.label_text = TextComponent(
-            state=self.state,
-            pos=(0, 0),
-            size=(self.width, 40),
-            text=self.label,
-            color="text",
-            font="medium",
-            align="center",
-            valign="middle"
-        )
 
     def process_event(self, event):
         pass
@@ -54,36 +47,47 @@ class Temperature(Component):
             self.current_temp = self.state.temps[self.temp_type]['actual']
             self.current_temp_height, self.current_temp_y = self.temp_to_height(
                 min(self.max_temp, max(self.min_temp, self.current_temp)))
-            self.surface = None
 
         if self.state.temps[self.temp_type]['target'] != self.target_temp:
             self.target_temp = self.state.temps[self.temp_type]['target']
             self.target_temp_height, self.target_temp_y = self.temp_to_height(
                 min(self.max_temp, max(self.min_temp, self.target_temp)))
-            self.surface = None
-
-    def make_surface(self):
-        self.surface = self.get_new_surface()
-
-        pygame.draw.rect(self.surface, self.state.colors['infill'],
-                         pygame.Rect(60, 40 + self.current_temp_y, 40, self.current_temp_height)
-                         )  # Infill
-
-        pygame.draw.rect(self.surface,
-                         self.state.colors['border'],
-                         pygame.Rect(60, 40, 40, self.height-40),
-                         2)  # border
-
-        pygame.draw_py.draw_line(self.surface,
-                                 (200, 75, 75),
-                                 (60, (40 + self.target_temp_y)),
-                                 (60 + 40, (40 + self.target_temp_y)),
-                                 5)  # target temp bar
-
-        self.label_text.render(self.surface)  # label
+            self.target_temp_y
 
     def render(self, surface):
-        if self.surface is None:
-            self.make_surface()
+        Text(self.state, self.label, 'label', center=(self.x + (self.width // 2), self.y + 20)).render(surface)
 
-        surface.blit(self.surface, self.pos)
+        pygame.draw.rect(surface, self.state.colors['temperature_infill'],
+                         pygame.Rect(self.bar_x, self.bar_y + self.current_temp_y, 20, self.current_temp_height)
+                         )  # Infill
+
+        pygame.draw.rect(surface,
+                         self.state.colors['temperature_border'],
+                         pygame.Rect(self.bar_x, self.bar_y, 20, self.bar_height),
+                         2)  # border
+
+        pygame.draw.polygon(surface, self.state.colors['temperature_infill'], [
+            (self.bar_x - 1, self.bar_y + self.current_temp_y),
+            (self.bar_x - 1 - 10, self.bar_y + self.current_temp_y - 5),
+            (self.bar_x - 1 - 10, self.bar_y + self.current_temp_y + 5),
+        ])
+
+        Text(self.state, str(round(self.current_temp)) + "º", 'regular',
+             midright=(self.bar_x - 15, self.bar_y + self.current_temp_y)).render(surface)
+
+        # pygame.draw_py.draw_line(surface,
+        #                          self.state.colors['temperature_target'],
+        #                          (self.bar_x, self.bar_y + self.target_temp_y),
+        #                          (self.bar_x + 40, self.bar_y + self.target_temp_y),
+        #                          1)  # target temp bar
+
+        pygame.draw.polygon(surface, self.state.colors['temperature_target'], [
+            (self.bar_x + 1 + 20, self.bar_y + self.target_temp_y),
+            (self.bar_x + 1 + 30, self.bar_y + self.target_temp_y - 5),
+            (self.bar_x + 1 + 30, self.bar_y + self.target_temp_y + 5),
+        ])
+
+        Text(self.state, str(round(self.target_temp)) + "º", 'regular',
+             midleft=(self.bar_x + 5 + 30, self.bar_y + self.target_temp_y)).render(surface)
+
+        # self.draw_outline(surface)

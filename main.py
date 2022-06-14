@@ -12,7 +12,7 @@ class PrinterController:
 
         pygame.init()
         self.state = State()
-        self.state.init_fonts()
+        self.state.init()
 
         if platform == "linux" or platform == "linux2":
             # https://github.com/MobilityLab/TransitScreen/wiki/Raspberry-Pi

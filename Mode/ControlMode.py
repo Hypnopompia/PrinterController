@@ -1,38 +1,30 @@
 import pygame
 import pytweening as tween
 
+import ptext
 from Mode.Mode import Mode
-from .Components import Background, Button, Hud, Camera, PrintProgressBar, TextComponent, Temperature
+from .Components import Background, Text, Hud, Button, Temperature
 
 
 class ControlMode(Mode):
     def __init__(self, state, printer):
         super().__init__(state, printer)
 
-        self.background = Background(self.state)  # Dark purple
-        self.title = TextComponent(self.state,
-                                   pos=(0, 0),
-                                   size=(self.state.window_width, 60),
-                                   text="Ender 3 v2",
-                                   font='large',
-                                   color="text",
-                                   align="center",
-                                   valign="middle",
-                                   highlight=True)
+        self.background = Background(self.state)
+        self.title = Text(self.state, "Ender 3 v2", "heading", center=(self.state.window_width // 2, 30))
+
         self.hud = Hud(self.state)
         # self.camera = Camera(self.state, (450, 100), (300, 300), self.state.camera_source)
 
-        self.button_home = Button(self.state, (100, 200), (160, 50), "Home", self.state.fonts['large'], (57, 136, 207),
-                                  (84, 243, 255),
-                                  self.button_home_on_click)
-        self.button_quit = Button(self.state, (690, 20), (90, 35), "Quit", self.state.fonts['medium'], (57, 136, 207),
-                                  (84, 243, 255),
-                                  self.button_quit_on_click)
+        # self.button_home = Button(self.state, (100, 200), (160, 50), "Home", self.state.fonts['large'], (57, 136, 207),
+        #                           (84, 243, 255),
+        #                           self.button_home_on_click)
+        self.button_quit = Button(self.state, (680, 20), (100, 40), "Quit", self.button_quit_on_click)
 
-        self.tool_temp = Temperature(self.state, (480, 80), (160, 260), 'tool')
-        self.bed_temp = Temperature(self.state, (640, 80), (160, 260), 'bed')
-
-        self.print_progress_bar = PrintProgressBar(self.state, (20, 400), (self.state.window_width - 40, 40))
+        self.tool_temp = Temperature(self.state, (520, 80), (140, 260), 'tool')
+        self.bed_temp = Temperature(self.state, (660, 80), (140, 260), 'bed')
+        #
+        # self.print_progress_bar = PrintProgressBar(self.state, (20, 400), (self.state.window_width - 40, 40))
 
         self.components = []
         self.components.append(self.background)
@@ -40,12 +32,10 @@ class ControlMode(Mode):
         self.components.append(self.hud)
         self.components.append(self.tool_temp)
         self.components.append(self.bed_temp)
-        self.components.append(self.print_progress_bar)
+        # self.components.append(self.print_progress_bar)
         # self.components.append(self.camera)
         # self.components.append(self.button_home)
         self.components.append(self.button_quit)
-
-        self.camera_direction = False
 
     def button_home_on_click(self):
         self.home_printer()
