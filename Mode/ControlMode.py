@@ -3,7 +3,7 @@ import pytweening as tween
 
 import ptext
 from Mode.Mode import Mode
-from .Components import Background, Text, Hud, Button, Temperature
+from .Components import Background, Text, Hud, Button, Temperature, PrintProgressBar
 
 
 class ControlMode(Mode):
@@ -23,8 +23,7 @@ class ControlMode(Mode):
 
         self.tool_temp = Temperature(self.state, (520, 80), (140, 260), 'tool')
         self.bed_temp = Temperature(self.state, (660, 80), (140, 260), 'bed')
-        #
-        # self.print_progress_bar = PrintProgressBar(self.state, (20, 400), (self.state.window_width - 40, 40))
+        self.print_progress_bar = PrintProgressBar(self.state, (20, 400), (self.state.window_width - 40, 40))
 
         self.components = []
         self.components.append(self.background)
@@ -32,7 +31,7 @@ class ControlMode(Mode):
         self.components.append(self.hud)
         self.components.append(self.tool_temp)
         self.components.append(self.bed_temp)
-        # self.components.append(self.print_progress_bar)
+        self.components.append(self.print_progress_bar)
         # self.components.append(self.camera)
         # self.components.append(self.button_home)
         self.components.append(self.button_quit)

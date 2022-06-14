@@ -51,6 +51,9 @@ class State:
         self.colors['temperature_border'] = (120, 204, 226)
         self.colors['temperature_target'] = (255, 0, 0)
 
+        self.colors['progress_infill'] = (57, 136, 207)
+        self.colors['progress_border'] = (120, 204, 226)
+
         # self.colors['text_highlight'] = (128, 128, 128)
         # self.colors['text_light'] = (228, 239, 240)
         # self.colors['text_light_highlight'] = (128, 128, 128)

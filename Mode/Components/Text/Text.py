@@ -43,6 +43,14 @@ class Text:
                 "scolor": "#666666",
                 "fontname": self.font,
                 "fontsize": 26
+            },
+            "progress_label": {
+                "color": self.state.colors['label_text_top'],
+                "gcolor": self.state.colors['label_text_bottom'],
+                "shadow": (1, 1),
+                "scolor": "#666666",
+                "fontname": self.font_mono,
+                "fontsize": 22
             }
         }
         pass
