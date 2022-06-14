@@ -36,11 +36,11 @@ class ControlMode(Mode):
 
         self.components = []
         self.components.append(self.background)
-        self.components.append(self.title)
+        # self.components.append(self.title)
         self.components.append(self.hud)
         self.components.append(self.tool_temp)
         self.components.append(self.bed_temp)
-        self.components.append(self.print_progress_bar)
+        # self.components.append(self.print_progress_bar)
         # self.components.append(self.camera)
         # self.components.append(self.button_home)
         self.components.append(self.button_quit)
