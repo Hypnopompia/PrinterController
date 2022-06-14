@@ -27,6 +27,15 @@ class Component:
         self.move_y_direction = None
         self.move_y_step = 0
 
+    def get_new_surface(self, size=None):
+        if size is None:
+            size = self.size
+
+        width, height = size
+        surface = pygame.Surface(size, pygame.SRCALPHA, 32).convert_alpha()
+        # pygame.draw.rect(surface, (100, 100, 100), pygame.Rect(0, 0, width, height), 1)
+        return surface
+
     def aspect_scale(self, img, bx, by):
         """ Scales 'img' to fit into box bx/by.
          This method will retain the original image's aspect ratio """

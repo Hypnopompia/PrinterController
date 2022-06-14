@@ -35,10 +35,11 @@ class PrintProgressBar:
                 self.percent_text_surface = TextComponent(
                     state=self.state,
                     pos=(self.x, self.y + self.height),
-                    width=self.width,
+                    size=(self.width, 40),
                     text=self.percent_text,
                     font="medium_mono",
-                    align="center"
+                    align="center",
+                    valign="middle"
                 )
 
     def set_elapsed_time(self, elapsed_time):
@@ -50,9 +51,11 @@ class PrintProgressBar:
             self.elapsed_time_surface = TextComponent(
                 state=self.state,
                 pos=(self.x, self.y + self.height),
-                width=self.width,
+                size=(self.width, 40),
                 text=self.state.get_print_time(),
-                font="medium_mono"
+                font="medium_mono",
+                align="left",
+                valign="middle"
             )
 
     def set_remaining_time(self, remaining_time):
@@ -63,13 +66,12 @@ class PrintProgressBar:
             self.remaining_time = remaining_time
             self.remaining_time_surface = TextComponent(
                 state=self.state,
-                pos=(
-                    self.x,
-                    self.y + self.height),
-                width=self.width,
+                pos=(self.x, self.y + self.height),
+                size=(self.width, 40),
                 text="-" + self.state.get_print_time_left(),
                 font="medium_mono",
-                align="right"
+                align="right",
+                valign="middle",
             )
 
     def process_event(self, event):
@@ -78,11 +80,14 @@ class PrintProgressBar:
     def update(self):
         self.set_progress(self.state.print_progress)
         self.set_elapsed_time(self.state.print_time)
-        # self.set_remaining_time(self.state.print_time_left)
-        self.set_remaining_time(3000)
+        self.set_remaining_time(self.state.print_time_left)
 
     def render(self, surface):
         width = int(self.width * (self.progress / 100))
+        pygame.draw.rect(surface, self.state.colors['infill'],
+                         pygame.Rect(self.x, self.y, width, self.height))  # Infill
+        pygame.draw.rect(surface, self.state.colors['border'], pygame.Rect(self.x, self.y, self.width, self.height),
+                         2)  # Border
 
         if self.elapsed_time_surface is not None:
             self.elapsed_time_surface.render(surface)
@@ -93,8 +98,3 @@ class PrintProgressBar:
         # Progress %
         if self.percent_text_surface is not None:
             self.percent_text_surface.render(surface)
-
-        pygame.draw.rect(surface, self.state.colors['infill'],
-                         pygame.Rect(self.x, self.y, width, self.height))  # Infill
-        pygame.draw.rect(surface, self.state.colors['border'], pygame.Rect(self.x, self.y, self.width, self.height),
-                         2)  # Border

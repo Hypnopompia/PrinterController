@@ -10,8 +10,15 @@ class ControlMode(Mode):
         super().__init__(state, printer)
 
         self.background = Background(self.state)  # Dark purple
-        self.title = TextComponent(self.state, pos=(0, 15), width=self.state.window_width, text="Ender 3 v2",
-                                   font='large', color="text", align="center", highlight=True)
+        self.title = TextComponent(self.state,
+                                   pos=(0, 0),
+                                   size=(self.state.window_width, 60),
+                                   text="Ender 3 v2",
+                                   font='large',
+                                   color="text",
+                                   align="center",
+                                   valign="middle",
+                                   highlight=True)
         self.hud = Hud(self.state)
         # self.camera = Camera(self.state, (450, 100), (300, 300), self.state.camera_source)
 
@@ -22,8 +29,8 @@ class ControlMode(Mode):
                                   (84, 243, 255),
                                   self.button_quit_on_click)
 
-        self.tool_temp = Temperature(self.state, (600, 100), (60, 260), 'tool')
-        self.bed_temp = Temperature(self.state, (700, 100), (60, 260), 'bed')
+        self.tool_temp = Temperature(self.state, (480, 80), (160, 260), 'tool')
+        self.bed_temp = Temperature(self.state, (640, 80), (160, 260), 'bed')
 
         self.print_progress_bar = PrintProgressBar(self.state, (20, 400), (self.state.window_width - 40, 40))
 
