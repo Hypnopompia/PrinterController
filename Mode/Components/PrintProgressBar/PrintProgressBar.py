@@ -6,18 +6,18 @@ from Mode.Components.TextComponent import TextComponent
 class PrintProgressBar:
     def __init__(self, state, pos, size):
         self.state = state
-        self.progress = 0
         self.x, self.y = self.pos = pos
         self.width, self.height = self.size = size
 
+        self.progress = None
         self.percent_text = None
         self.percent_text_surface = None
         self.progress_bar_surface = None
 
-        self.elapsed_time = 0
+        self.elapsed_time = None
         self.elapsed_time_surface = None
 
-        self.remaining_time = 0
+        self.remaining_time = None
         self.remaining_time_surface = None
 
         self.set_progress(0)
@@ -63,6 +63,7 @@ class PrintProgressBar:
             self.remaining_time = 0
 
         if self.remaining_time != remaining_time:
+
             self.remaining_time = remaining_time
             self.remaining_time_surface = TextComponent(
                 state=self.state,
