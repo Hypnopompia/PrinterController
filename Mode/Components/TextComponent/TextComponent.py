@@ -70,4 +70,4 @@ class TextComponent(Component):
         if self.surface is None:
             self.make_surface()
 
-        surface.blit(self.surface, (self.x, self.y))
+        # surface.blit(self.surface, (self.x, self.y))
