@@ -32,7 +32,7 @@ class Component:
             size = self.size
 
         width, height = size
-        surface = pygame.Surface(size, pygame.SRCALPHA, 32).convert_alpha()
+        surface = pygame.Surface(size, pygame.SRCALPHA, 32)
         # pygame.draw.rect(surface, (100, 100, 100), pygame.Rect(0, 0, width, height), 1)
         return surface
 
