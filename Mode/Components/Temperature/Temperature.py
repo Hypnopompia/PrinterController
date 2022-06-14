@@ -55,7 +55,7 @@ class Temperature(Component):
             self.target_temp_y
 
     def render(self, surface):
-        Text(self.state, self.label, 'label', center=(self.x + (self.width // 2), self.y + 20)).render(surface)
+        Text(self.state, self.label, 'label', midtop=(self.x + (self.width // 2), self.y)).render(surface)
 
         pygame.draw.rect(surface, self.state.colors['temperature_infill'],
                          pygame.Rect(self.bar_x, self.bar_y + self.current_temp_y, 20, self.current_temp_height)
