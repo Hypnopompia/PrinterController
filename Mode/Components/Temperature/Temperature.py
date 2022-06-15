@@ -66,14 +66,16 @@ class Temperature(Component):
                          pygame.Rect(self.bar_x, self.bar_y, 20, self.bar_height),
                          2)  # border
 
-        pygame.draw.polygon(surface, self.state.colors['temperature_infill'], [
+        pygame.draw.polygon(surface, self.state.colors['temperature_border'], [
             (self.bar_x - 1, self.bar_y + self.current_temp_y),
             (self.bar_x - 1 - 10, self.bar_y + self.current_temp_y - 5),
             (self.bar_x - 1 - 10, self.bar_y + self.current_temp_y + 5),
         ])
 
         Text(self.state, str(round(self.current_temp)) + "º", 'regular',
-             midright=(self.bar_x - 15, self.bar_y + self.current_temp_y)).render(surface)
+             midright=(self.bar_x - 15, self.bar_y + self.current_temp_y),
+             color=self.state.colors['temperature_text']
+             ).render(surface)
 
         # pygame.draw_py.draw_line(surface,
         #                          self.state.colors['temperature_target'],
@@ -93,6 +95,8 @@ class Temperature(Component):
             target_temp_text = str(round(self.target_temp)) + "º"
 
         Text(self.state, target_temp_text, 'regular',
-             midleft=(self.bar_x + 5 + 30, self.bar_y + self.target_temp_y)).render(surface)
+             midleft=(self.bar_x + 5 + 30, self.bar_y + self.target_temp_y),
+             color=self.state.colors['temperature_text']
+             ).render(surface)
 
-        # self.draw_outline(surface)
+    # self.draw_outline(surface)

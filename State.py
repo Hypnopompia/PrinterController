@@ -38,7 +38,7 @@ class State:
         self.colors['background'] = (0, 36, 57)
         self.colors['background_line'] = (0, 60, 72)
 
-        self.colors['text'] = (228, 239, 240)
+        self.colors['text'] = (0, 255, 0)  # (228, 239, 240)
 
         self.colors['label_text_top'] = (228, 239, 240)
         self.colors['label_text_bottom'] = (120, 204, 226)
@@ -47,12 +47,13 @@ class State:
         self.colors['button_text_top'] = (228, 239, 240)
         self.colors['button_text_bottom'] = (120, 204, 226)
 
-        self.colors['temperature_infill'] = (57, 136, 207)
-        self.colors['temperature_border'] = (120, 204, 226)
-        self.colors['temperature_target'] = (255, 0, 0)
+        self.colors['temperature_text'] = (188, 198, 200)
+        self.colors['temperature_infill'] = (46, 97, 150)
+        self.colors['temperature_border'] = (101, 169, 240)
+        self.colors['temperature_target'] = (237, 64, 92)
 
-        self.colors['progress_infill'] = (57, 136, 207)
-        self.colors['progress_border'] = (120, 204, 226)
+        self.colors['progress_infill'] = (46, 97, 150)
+        self.colors['progress_border'] = (101, 169, 240)
 
         # self.colors['text_highlight'] = (128, 128, 128)
         # self.colors['text_light'] = (228, 239, 240)
