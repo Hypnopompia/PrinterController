@@ -44,13 +44,13 @@ class Hud:
         Text(self.state, self.status, font, topleft=(x, y)).render(surface)
         y += line_offset
 
-        if self.state.temps['tool']['actual'] > 0:
-            Text(self.state, self.tool_temp, font, topleft=(x, y)).render(surface)
-            y += line_offset
-
-        if self.state.temps['bed']['actual'] > 0:
-            Text(self.state, self.bed_temp, font, topleft=(x, y)).render(surface)
-            y += line_offset
+        # if self.state.temps['tool']['actual'] > 0:
+        #     Text(self.state, self.tool_temp, font, topleft=(x, y)).render(surface)
+        #     y += line_offset
+        #
+        # if self.state.temps['bed']['actual'] > 0:
+        #     Text(self.state, self.bed_temp, font, topleft=(x, y)).render(surface)
+        #     y += line_offset
 
         if self.state.filename != "":
             Text(self.state, self.file, font, topleft=(x, y)).render(surface)

@@ -91,7 +91,7 @@ class Temperature(Component):
             target_temp_text = "Off"
         else:
             target_temp_text = str(round(self.target_temp)) + "º"
-            
+
         Text(self.state, target_temp_text, 'regular',
              midleft=(self.bar_x + 5 + 30, self.bar_y + self.target_temp_y)).render(surface)
 
