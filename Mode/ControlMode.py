@@ -23,7 +23,7 @@ class ControlMode(Mode):
 
         self.tool_temp = Temperature(self.state, (520, 80), (140, 260), 'tool')
         self.bed_temp = Temperature(self.state, (660, 80), (140, 260), 'bed')
-        self.print_progress_bar = PrintProgressBar(self.state, (20, 400), (self.state.window_width - 40, 40))
+        self.print_progress_bar = PrintProgressBar(self.state, (20, 380), (self.state.window_width - 40, 40))
 
         self.components = []
         self.components.append(self.background)
