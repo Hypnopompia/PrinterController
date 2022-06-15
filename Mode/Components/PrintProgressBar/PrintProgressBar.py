@@ -7,6 +7,7 @@ class PrintProgressBar:
     def __init__(self, state, pos, size):
         self.state = state
         self.x, self.y = self.pos = pos
+        self.bar_y = self.y + 40
         self.width, self.height = self.size = size
 
         self.progress = None
@@ -31,17 +32,20 @@ class PrintProgressBar:
         self.set_progress(self.state.print_progress)
 
     def render(self, surface):
+        Text(self.state, "Progress", 'label', midtop=(self.x + (self.width // 2), self.y)).render(surface)
+
         # Progress Bar
         width = int(self.width * (self.progress / 100))
         pygame.draw.rect(surface, self.state.colors['progress_infill'],
-                         pygame.Rect(self.x, self.y, width, self.height))  # Infill
+                         pygame.Rect(self.x, self.bar_y, width, self.height))  # Infill
         pygame.draw.rect(surface, self.state.colors['progress_border'],
-                         pygame.Rect(self.x, self.y, self.width, self.height),
+                         pygame.Rect(self.x, self.bar_y, self.width, self.height),
                          2)  # Border
 
         progress_start_x = self.x + width - 30
         progress_end_x = progress_start_x + 60
         progress_center_x = self.x + width
+        progress_y = self.bar_y + self.height
 
         if progress_start_x < self.x:
             progress_start_x = self.x
@@ -56,34 +60,36 @@ class PrintProgressBar:
         progress_connector_x = (progress_end_x - progress_start_x) * (self.progress / 100) + progress_start_x
 
         pygame.draw.line(surface, self.state.colors['progress_border'], (self.x + width, self.y + self.height),
-                         (self.x + width, self.y + self.height + 5))
+                         (self.x + width, progress_y + 5))
 
-        pygame.draw.line(surface, self.state.colors['progress_border'], (progress_start_x, self.y + self.height + 10),
-                         (progress_end_x, self.y + self.height + 10))
+        pygame.draw.line(surface, self.state.colors['progress_border'], (progress_start_x, progress_y + 10),
+                         (progress_end_x, progress_y + 10))
 
         pygame.draw.line(surface, self.state.colors['progress_border'],
-                         (progress_connector_x, self.y + self.height + 5),
-                         (progress_connector_x, self.y + self.height + 10))
+                         (progress_connector_x, progress_y + 5),
+                         (progress_connector_x, progress_y + 10))
 
-        pygame.draw.line(surface, self.state.colors['progress_border'], (self.x + width, self.y + self.height + 5),
-                         (progress_connector_x, self.y + self.height + 5))
+        pygame.draw.line(surface, self.state.colors['progress_border'], (self.x + width, progress_y + 5),
+                         (progress_connector_x, progress_y + 5))
 
         Text(self.state, self.percent_text, 'progress_label',
-             midtop=(progress_center_x, self.y + self.height + 10)).render(surface)
+             midtop=(progress_center_x, progress_y + 10)).render(surface)
 
         # Print Time
-        Text(self.state, self.state.get_print_time(), 'regular_mono',
-             topleft=(self.x, self.y + self.height + 40)).render(
+        Text(self.state, self.state.get_print_time(), 'progress_label',
+             topleft=(self.x + 5, self.y + 12)).render(
             surface)
-        pygame.draw.line(surface, self.state.colors['progress_border'], (self.x, self.y + self.height),
-                         (self.x, self.y + self.height + 40))
-        pygame.draw.line(surface, self.state.colors['progress_border'], (self.x, self.y + self.height + 40),
-                         (self.x + 80, self.y + self.height + 40))
-        # Remaining Time
-        Text(self.state, self.state.get_print_time_left(), 'regular_mono',
-             topright=(self.x + self.width, self.y + self.height + 40)).render(surface)
+        pygame.draw.line(surface, self.state.colors['progress_border'], (self.x, self.y + 40), (self.x, self.y + 10))
+        pygame.draw.line(surface, self.state.colors['progress_border'], (self.x, self.y + 10),
+                         (self.x + 80, self.y + 10))
 
-        pygame.draw.line(surface, self.state.colors['progress_border'], (self.x + self.width, self.y + self.height),
-                         (self.x + self.width, self.y + self.height + 40))
-        pygame.draw.line(surface, self.state.colors['progress_border'], (self.x + self.width, self.y + self.height + 40),
-                         (self.x + self.width - 80, self.y + self.height + 40))
+        # Remaining Time
+        Text(self.state, "-" + self.state.get_print_time_left(), 'progress_label',
+             topright=(self.x + self.width - 2, self.y + 12)).render(surface)
+
+        # pygame.draw.line(surface, self.state.colors['progress_border'], (self.x + self.width, self.y),
+        #                  (self.x + self.width, self.y))
+        pygame.draw.line(surface, self.state.colors['progress_border'], (self.x + self.width - 1, self.y + 40),
+                         (self.x + self.width - 1, self.y + 10))
+        pygame.draw.line(surface, self.state.colors['progress_border'], (self.x + self.width - 1, self.y + 10),
+                         (self.x + self.width - 80 - 1, self.y + 10))
