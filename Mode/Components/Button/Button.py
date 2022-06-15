@@ -24,4 +24,8 @@ class Button(Component):
 
     def render(self, surface):
         pygame.draw.rect(surface, self.state.colors['button_border'], self.get_rect(), 1)
-        Text(self.state, self.label, 'button', center=(self.x + (self.width // 2), self.y + (self.height // 2))).render(surface)
+        Text(self.state, self.label, 'button',
+             center=(self.x + (self.width // 2), self.y + (self.height // 2)),
+             owidth=1.5,
+             ocolor="purple"
+             ).render(surface)

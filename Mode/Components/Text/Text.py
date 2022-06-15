@@ -29,8 +29,10 @@ class Text:
                 "fontsize": 26
             },
             "heading": {
-                "color": "red",
+                "color": "white",
                 "gcolor": "purple",
+                # "color": "red",
+                # "gcolor": "purple",
                 "shadow": (1, 1),
                 "scolor": "#666666",
                 "fontname": self.font,
