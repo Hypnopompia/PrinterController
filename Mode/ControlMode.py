@@ -21,16 +21,16 @@ class ControlMode(Mode):
         #                           self.button_home_on_click)
         self.button_quit = Button(self.state, (680, 20), (100, 40), "Quit", self.button_quit_on_click)
 
-        self.tool_temp = Temperature(self.state, (520, 80), (140, 260), 'tool')
-        self.bed_temp = Temperature(self.state, (660, 80), (140, 260), 'bed')
+        self.bed_temp = Temperature(self.state, (20, 280), (360, 40), 'bed')
+        self.tool_temp = Temperature(self.state, (400, 280), (360, 40), 'tool')
         self.print_progress_bar = PrintProgressBar(self.state, (20, 360), (self.state.window_width - 40, 40))
 
         self.components = []
         self.components.append(self.background)
         self.components.append(self.title)
         self.components.append(self.hud)
-        self.components.append(self.tool_temp)
         self.components.append(self.bed_temp)
+        self.components.append(self.tool_temp)
         self.components.append(self.print_progress_bar)
         # self.components.append(self.camera)
         # self.components.append(self.button_home)

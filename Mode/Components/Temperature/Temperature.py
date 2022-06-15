@@ -7,16 +7,18 @@ class Temperature(Component):
     def __init__(self, state, pos, size, temp_type):
         super().__init__(state, pos, size)
 
-        self.bar_x = self.x + 60
-        self.bar_y = self.y + 40
-        self.bar_height = self.height - 40
+        self.bar_x = self.x + 80
+        self.bar_y = self.y
+        self.bar_width = self.width - 80
+        self.bar_height = 40
 
-        self.target_temp_y = None
+        self.target_temp_x = None
         self.target_temp_height = None
         self.target_temp = None
 
+        self.current_temp_x = None
         self.current_temp_height = None
-        self.current_temp_y = None
+        self.current_temp = None
 
         self.temp_height = None
         self.temp_percent = None
@@ -37,66 +39,75 @@ class Temperature(Component):
     def process_event(self, event):
         pass
 
-    def temp_to_height(self, temperature):
+    def temp_to_width(self, temperature):
         temp_percent = (temperature - self.min_temp) / (self.max_temp - self.min_temp)
-        temp_height = int(self.bar_height * temp_percent)
-        return temp_height, (self.bar_height - temp_height)
+        temp_width = int(self.bar_width * temp_percent)
+        return temp_width
 
     def update(self):
         if self.state.temps[self.temp_type]['actual'] != self.current_temp:
             self.current_temp = self.state.temps[self.temp_type]['actual']
-            self.current_temp_height, self.current_temp_y = self.temp_to_height(
+            self.current_temp_x = self.temp_to_width(
                 min(self.max_temp, max(self.min_temp, self.current_temp)))
 
         if self.state.temps[self.temp_type]['target'] != self.target_temp:
             self.target_temp = self.state.temps[self.temp_type]['target']
-            self.target_temp_height, self.target_temp_y = self.temp_to_height(
+            self.target_temp_x = self.temp_to_width(
                 min(self.max_temp, max(self.min_temp, self.target_temp)))
-            self.target_temp_y
 
     def render(self, surface):
-        Text(self.state, self.label, 'label', midtop=(self.x + (self.width // 2), self.y)).render(surface)
+        Text(self.state, self.label, 'label', midright=(self.bar_x - 5, self.y + (self.height // 2))).render(surface)
 
         pygame.draw.rect(surface, self.state.colors['temperature_infill'],
-                         pygame.Rect(self.bar_x, self.bar_y + self.current_temp_y, 20, self.current_temp_height)
+                         pygame.Rect(self.bar_x, self.bar_y, self.current_temp_x, self.bar_height)
                          )  # Infill
 
         pygame.draw.rect(surface,
                          self.state.colors['temperature_border'],
-                         pygame.Rect(self.bar_x, self.bar_y, 20, self.bar_height),
+                         pygame.Rect(self.bar_x, self.bar_y, self.bar_width, self.bar_height),
                          2)  # border
 
         pygame.draw.polygon(surface, self.state.colors['temperature_border'], [
-            (self.bar_x - 1, self.bar_y + self.current_temp_y),
-            (self.bar_x - 1 - 10, self.bar_y + self.current_temp_y - 5),
-            (self.bar_x - 1 - 10, self.bar_y + self.current_temp_y + 5),
+            (self.bar_x + self.current_temp_x, self.bar_y - 2),
+            (self.bar_x + self.current_temp_x - 5, self.bar_y - 12),
+            (self.bar_x + self.current_temp_x + 5, self.bar_y - 12),
         ])
 
-        Text(self.state, str(round(self.current_temp)) + "º", 'regular',
-             midright=(self.bar_x - 15, self.bar_y + self.current_temp_y),
+        pygame.draw.lines(surface, self.state.colors['temperature_border'], False, (
+            (self.bar_x + self.current_temp_x, self.bar_y),
+            (self.bar_x + self.current_temp_x, self.bar_y - 20),
+            (self.bar_x + self.current_temp_x - 10, self.bar_y - 20),
+            (self.bar_x + self.current_temp_x - 10, self.bar_y - 10),
+            (self.bar_x + self.current_temp_x - 20, self.bar_y - 10),
+        ))
+
+        Text(self.state, str(round(self.current_temp, 1)) + "º", 'regular',
+             midright=(self.bar_x + self.current_temp_x - 25, self.bar_y - 10),
              color=self.state.colors['temperature_text']
              ).render(surface)
 
-        # pygame.draw_py.draw_line(surface,
-        #                          self.state.colors['temperature_target'],
-        #                          (self.bar_x, self.bar_y + self.target_temp_y),
-        #                          (self.bar_x + 40, self.bar_y + self.target_temp_y),
-        #                          1)  # target temp bar
-
         pygame.draw.polygon(surface, self.state.colors['temperature_target'], [
-            (self.bar_x + 1 + 20, self.bar_y + self.target_temp_y),
-            (self.bar_x + 1 + 30, self.bar_y + self.target_temp_y - 5),
-            (self.bar_x + 1 + 30, self.bar_y + self.target_temp_y + 5),
+            (self.bar_x + self.target_temp_x, self.bar_y + self.bar_height),
+            (self.bar_x + self.target_temp_x - 5, self.bar_y + self.bar_height + 10),
+            (self.bar_x + self.target_temp_x + 5, self.bar_y + self.bar_height + 10),
         ])
+
+        pygame.draw.lines(surface, self.state.colors['temperature_target'], False, (
+            (self.bar_x + self.target_temp_x, self.bar_y + self.bar_height),
+            (self.bar_x + self.target_temp_x, self.bar_y + self.bar_height + 20),
+            (self.bar_x + self.target_temp_x - 10, self.bar_y + self.bar_height + 20),
+            (self.bar_x + self.target_temp_x - 10, self.bar_y + self.bar_height + 10),
+            (self.bar_x + self.target_temp_x - 20, self.bar_y + self.bar_height + 10),
+        ))
 
         if self.target_temp == 0:
             target_temp_text = "Off"
         else:
-            target_temp_text = str(round(self.target_temp)) + "º"
+            target_temp_text = str(round(self.target_temp, 1)) + "º"
 
         Text(self.state, target_temp_text, 'regular',
-             midleft=(self.bar_x + 5 + 30, self.bar_y + self.target_temp_y),
+             midright=(self.bar_x + self.target_temp_x - 25, self.bar_y + self.bar_height + 10),
              color=self.state.colors['temperature_text']
              ).render(surface)
 
-    # self.draw_outline(surface)
+        # self.draw_outline(surface)
