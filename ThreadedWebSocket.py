@@ -25,7 +25,7 @@ class ThreadedWebSocket():
         pass
 
     def on_message(self, ws, message):
-        if time.process_time() > self.state.last_busy_time + 1:
+        if time.process_time() > self.state.last_busy_time + 2:
             self.state.printer_busy = False
 
         #  print(message)
