@@ -44,6 +44,7 @@ class State:
         self.colors['label_text_bottom'] = (120, 204, 226)
 
         self.colors['button_border'] = (120, 204, 226)
+        self.colors['button_border_on'] = (237, 64, 92)
         self.colors['button_text_top'] = (228, 239, 240)
         self.colors['button_text_bottom'] = (120, 204, 226)
 

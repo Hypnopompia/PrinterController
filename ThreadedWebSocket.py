@@ -25,7 +25,7 @@ class ThreadedWebSocket():
         pass
 
     def on_message(self, ws, message):
-        # print(message)
+        #  print(message)
         message_json = json.loads(message)
         if "connected" in message_json:
             ws.send(json.dumps({"auth": self.state.octoprint_user + ":" + self.state.octoprint_session}))
@@ -52,6 +52,8 @@ class ThreadedWebSocket():
                 self.state.print_time_left = progress["printTimeLeft"] or 0
             if "currentZ" in current:
                 self.state.current_z = current["currentZ"] or 0
+            if "logs" in current:
+                print(current['logs'])
 
     def on_error(self, ws, error):
         raise error

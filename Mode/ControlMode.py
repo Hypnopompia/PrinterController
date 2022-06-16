@@ -1,3 +1,5 @@
+import time
+
 import pygame
 import pytweening as tween
 
@@ -19,7 +21,9 @@ class ControlMode(Mode):
         # self.button_home = Button(self.state, (100, 200), (160, 50), "Home", self.state.fonts['large'], (57, 136, 207),
         #                           (84, 243, 255),
         #                           self.button_home_on_click)
-        self.button_quit = Button(self.state, (680, 20), (100, 40), "Quit", self.button_quit_on_click)
+        self.button_quit = Button(self.state, (680, 20), (120, 40), "Quit", self.button_quit_on_click)
+
+        self.button_purge = Button(self.state, (680, 80), (120, 40), "Purge", self.button_purge_on_click)
 
         self.bed_temp = Temperature(self.state, (20, 280), (360, 40), 'bed', self.toggle_bed_target_temp)
         self.tool_temp = Temperature(self.state, (400, 280), (360, 40), 'tool', self.toggle_tool_target_temp)
@@ -36,11 +40,16 @@ class ControlMode(Mode):
         # self.components.append(self.button_home)
         self.components.append(self.button_quit)
 
+        self.components.append(self.button_purge)
+
     def button_home_on_click(self):
         self.home_printer()
 
     def button_quit_on_click(self):
         self.quit_requested()
+
+    def button_purge_on_click(self):
+        self.printer.purge_filament()
 
     def process_event(self, event):
         if event.type == pygame.KEYDOWN:

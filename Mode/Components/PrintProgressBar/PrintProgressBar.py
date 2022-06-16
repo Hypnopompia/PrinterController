@@ -13,18 +13,19 @@ class PrintProgressBar:
         self.progress = None
         self.percent_text = None
 
-        self.set_progress(0)
-
     def set_progress(self, progress):
         if progress is None:
-            progress = 0
+            return
 
         if self.progress != progress:
             if self.progress is None:
                 self.progress = progress
 
             diff = (progress or 0) - (self.progress or 0)
-            self.progress += max(-0.1, min(0.1, diff))
+            if diff < 10:
+                self.progress += max(-0.1, min(0.1, diff))
+            else:
+                self.progress = progress
 
             if self.percent_text != str(round(self.progress, 1)) + "%":
                 self.percent_text = str(round(self.progress, 1)) + "%"

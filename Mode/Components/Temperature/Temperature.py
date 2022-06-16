@@ -97,7 +97,7 @@ class Temperature(Component):
             (self.bar_x + self.current_temp_x - 20, self.bar_y - 10),
         ))
 
-        Text(self.state, str(round(self.current_temp, 1)) + "º", 'regular_mono',
+        Text(self.state, str(round(self.current_temp)) + "º", 'regular_mono',
              midright=(self.bar_x + self.current_temp_x - 25, self.bar_y - 10),
              color=self.state.colors['temperature_text']
              ).render(surface)
@@ -119,7 +119,7 @@ class Temperature(Component):
         if self.target_temp == 0:
             target_temp_text = "Off"
         else:
-            target_temp_text = str(round(self.target_temp, 1)) + "º"
+            target_temp_text = str(round(self.target_temp)) + "º"
 
         Text(self.state, target_temp_text, 'regular_mono',
              midright=(self.bar_x + self.target_temp_x - 25, self.bar_y + self.bar_height + 10),

@@ -92,6 +92,26 @@ class RestClient:
         r = requests.post(url, data=data, headers=self._headers)
         return r.status_code == 204
 
+    def purge_filament(self):
+        self.state.temps['tool']['target'] = 200
+        url = self._build_url("printer/command")
+        data = json.dumps({'commands': [
+            "M104 S200 T0",  # start heating hot end to 200 degrees Celsius
+            "G28 X0 Y0 Z0",  # home X, Y and Z axis end-stops
+            "G1 F5000",  # Set feed rate to 5000mm/m
+            "G1 Z60",  # Move to 60mm Z
+            "G1 X110 Y110",  # Move to middle of build plate
+            "M109 S200 T0",  # Wait for T0 to reach 200 degrees before continuing with any other commands
+            "G92 E0",  # zero the extruded length
+            "G1 F100 E50",  # extrude 50mm of feed stock
+            "G92 E0",  # zero the extruded length
+            "G1 F75 E-2",  # retract 2mm
+            "G92 E0",  # zero the extruded length
+            "M104 S0 T0",  # turn off the hot end
+        ]})
+        r = requests.post(url, data=data, headers=self._headers)
+        return r.status_code == 204
+
     def start_preheat(self):
         bed_temp = 60
         tool_0 = 200
