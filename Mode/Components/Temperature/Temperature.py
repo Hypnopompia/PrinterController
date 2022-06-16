@@ -34,7 +34,7 @@ class Temperature(Component):
         elif self.temp_type == "bed":
             self.max_temp = 60
             self.label = "Bed"
-            self.icon_surface = pygame.image.load("assets/images/build_plate_temp.png").convert_alpha()
+            self.icon_surface = pygame.image.load("assets/images/build_plate_temp.png")
         else:
             self.max_temp = 250
 
