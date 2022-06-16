@@ -4,8 +4,10 @@ from Mode.Components import Component, Text
 
 
 class Temperature(Component):
-    def __init__(self, state, pos, size, temp_type):
+    def __init__(self, state, pos, size, temp_type, on_click):
         super().__init__(state, pos, size)
+
+        self.on_click = on_click
 
         self.bar_x = self.x + 80
         self.bar_y = self.y
@@ -37,7 +39,9 @@ class Temperature(Component):
         self.current_temp = self.min_temp
 
     def process_event(self, event):
-        pass
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1 and self.is_mouse_over(event.pos):
+                self.on_click()
 
     def temp_to_width(self, temperature):
         temp_percent = (temperature - self.min_temp) / (self.max_temp - self.min_temp)
