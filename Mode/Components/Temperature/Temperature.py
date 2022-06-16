@@ -9,9 +9,9 @@ class Temperature(Component):
 
         self.on_click = on_click
 
-        self.bar_x = self.x + 80
+        self.bar_x = self.x + 40
         self.bar_y = self.y
-        self.bar_width = self.width - 80
+        self.bar_width = self.width - 40
         self.bar_height = 40
 
         self.target_temp_x = None
@@ -30,9 +30,11 @@ class Temperature(Component):
         if self.temp_type == "tool":
             self.max_temp = 200
             self.label = "Tool"
+            self.icon_surface = pygame.image.load("assets/images/hot_end_temp.png")
         elif self.temp_type == "bed":
             self.max_temp = 60
             self.label = "Bed"
+            self.icon_surface = pygame.image.load("assets/images/build_plate_temp.png").convert_alpha()
         else:
             self.max_temp = 250
 
@@ -66,7 +68,8 @@ class Temperature(Component):
                 min(self.max_temp, max(self.min_temp, self.target_temp)))
 
     def render(self, surface):
-        Text(self.state, self.label, 'label', midright=(self.bar_x - 5, self.y + (self.height // 2))).render(surface)
+        #  Text(self.state, self.label, 'label', midright=(self.bar_x - 5, self.y + (self.height // 2))).render(surface)
+        surface.blit(self.icon_surface, (self.x+4, self.y+4))
 
         infill_color = self.state.colors['temperature_infill'] if self.target_temp == 0 else self.state.colors[
             'temperature_target']
