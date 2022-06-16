@@ -1,7 +1,7 @@
 from threading import Thread
 import websocket
 import json
-
+import time
 
 class ThreadedWebSocket():
     def __init__(self, state):
@@ -25,6 +25,9 @@ class ThreadedWebSocket():
         pass
 
     def on_message(self, ws, message):
+        if time.process_time() > self.state.last_busy_time + 1:
+            self.state.printer_busy = False
+
         #  print(message)
         message_json = json.loads(message)
         if "connected" in message_json:
@@ -53,7 +56,11 @@ class ThreadedWebSocket():
             if "currentZ" in current:
                 self.state.current_z = current["currentZ"] or 0
             if "logs" in current:
-                print(current['logs'])
+                for log in current['logs']:
+                    log = log.replace("Recv: ", "").strip()
+                    print(log)
+                    if log.startswith("echo:busy:"):
+                        self.state.make_busy()
 
     def on_error(self, ws, error):
         raise error

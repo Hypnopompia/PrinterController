@@ -92,8 +92,8 @@ class RestClient:
         r = requests.post(url, data=data, headers=self._headers)
         return r.status_code == 204
 
-    def purge_filament(self):
-        self.state.temps['tool']['target'] = 200
+    def start_purge_filament(self):
+        self.state.make_busy()
         url = self._build_url("printer/command")
         data = json.dumps({'commands': [
             "M104 S200 T0",  # start heating hot end to 200 degrees Celsius
@@ -102,10 +102,29 @@ class RestClient:
             "G1 Z60",  # Move to 60mm Z
             "G1 X110 Y110",  # Move to middle of build plate
             "M109 S200 T0",  # Wait for T0 to reach 200 degrees before continuing with any other commands
+            "M400",  # Wait for the head to stop
+        ]})
+        r = requests.post(url, data=data, headers=self._headers)
+        return r.status_code == 204
+
+    def purge_filament(self, length: int):
+        self.state.temps['tool']['target'] = 200
+        self.state.make_busy()
+        url = self._build_url("printer/command")
+        data = json.dumps({'commands': [
             "G92 E0",  # zero the extruded length
-            "G1 F100 E50",  # extrude 50mm of feed stock
+            "G1 F75 E" + str(length).strip(),  # extrude 10mm of feed stock
+            "M400",  # Wait for the extruder to finish
+        ]})
+        r = requests.post(url, data=data, headers=self._headers)
+        return r.status_code == 204
+
+    def end_purge_filament(self):
+        self.state.temps['tool']['target'] = 200
+        url = self._build_url("printer/command")
+        data = json.dumps({'commands': [
             "G92 E0",  # zero the extruded length
-            "G1 F75 E-2",  # retract 2mm
+            "G1 F75 E-1",  # retract 1mm
             "G92 E0",  # zero the extruded length
             "M104 S0 T0",  # turn off the hot end
         ]})

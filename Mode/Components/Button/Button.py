@@ -17,11 +17,11 @@ class Button(Component):
             if event.button == 1 and self.is_mouse_over(event.pos):
                 self.on_click()
 
-    def toggle(self):
-        if self.border_color == self.state.colors['button_border']:
-            self.border_color = self.state.colors['button_border_on']
-        else:
-            self.border_color = self.state.colors['button_border']
+    def on(self):
+        self.border_color = self.state.colors['button_border_on']
+
+    def off(self):
+        self.border_color = self.state.colors['button_border']
 
     def update(self):
         pass

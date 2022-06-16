@@ -11,6 +11,8 @@ from .Components import Background, Text, Hud, Button, Temperature, PrintProgres
 class ControlMode(Mode):
     def __init__(self, state, printer):
         super().__init__(state, printer)
+        self.purge_length = 10
+        self.purge_counter = 0
 
         self.background = Background(self.state)
         self.title = Text(self.state, "Ender 3 v2", "heading", center=(self.state.window_width // 2, 30))
@@ -49,7 +51,16 @@ class ControlMode(Mode):
         self.quit_requested()
 
     def button_purge_on_click(self):
-        self.printer.purge_filament()
+        if not self.state.purging:
+            self.state.purge_status = "Heating up hot end"
+            self.state.purging = True
+            self.button_purge.on()
+            self.printer.start_purge_filament()
+        else:
+            self.state.purge_status = "Stopping purge..."
+            self.state.purging = False
+            self.button_purge.off()
+            self.printer.end_purge_filament()
 
     def process_event(self, event):
         if event.type == pygame.KEYDOWN:
@@ -64,6 +75,11 @@ class ControlMode(Mode):
     def update(self):
         for component in self.components:
             component.update()
+
+        if self.state.purging and self.state.temps['tool']['actual'] > 190 and not self.state.printer_busy:
+            self.purge_counter += self.purge_length
+            self.state.purge_status = "Purging (" + str(self.purge_counter) + "mm)..."
+            self.printer.purge_filament(self.purge_length)
 
     def render(self, surface):
         for component in self.components:

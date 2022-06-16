@@ -62,3 +62,9 @@ class Hud:
         Text(self.state, self.z_index, font, topleft=(x, y)).render(surface)
         y += line_offset
 
+        Text(self.state, "                Busy: " + ("Yes" if self.state.printer_busy else "No"), font, topleft=(x, y)).render(surface)
+        y += line_offset
+
+        if self.state.purging:
+            Text(self.state, "        Purge Status: " + self.state.purge_status, font, topleft=(x, y)).render(surface)
+            y += line_offset

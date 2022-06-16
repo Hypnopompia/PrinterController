@@ -1,3 +1,4 @@
+import time
 from dataclasses import dataclass, field
 import datetime
 
@@ -30,6 +31,10 @@ class State:
     print_time_left: int = 0
     filename: str = ""
     current_z: int = 0
+    printer_busy = False
+    last_busy_time = 0
+    purging = False
+    purge_status = None
 
     def init(self):
         font = "./assets/fonts/recharge/recharge.ttf"
@@ -69,6 +74,10 @@ class State:
             "actual": 0,
             "target": 0
         }
+
+    def make_busy(self):
+        self.last_busy_time = time.process_time()
+        self.printer_busy = True
 
     def get_est_print_time(self):
         return str(datetime.timedelta(seconds=self.est_print_time))
