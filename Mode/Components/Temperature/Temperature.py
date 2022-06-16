@@ -53,7 +53,7 @@ class Temperature(Component):
             if self.current_temp is None:
                 self.current_temp = 0
             diff = (self.state.temps[self.temp_type]['actual'] or 0) - (self.current_temp or 0)
-            self.current_temp += max(-1, min(1, diff))
+            self.current_temp += max(-0.5, min(0.5, diff))
             self.current_temp_x = self.temp_to_width(
                 min(self.max_temp, max(self.min_temp, self.current_temp)))
 
@@ -61,7 +61,7 @@ class Temperature(Component):
             if self.target_temp is None:
                 self.target_temp = 0
             diff = self.state.temps[self.temp_type]['target'] - self.target_temp
-            self.target_temp += max(-1, min(1, diff))
+            self.target_temp += max(-0.5, min(0.5, diff))
             self.target_temp_x = self.temp_to_width(
                 min(self.max_temp, max(self.min_temp, self.target_temp)))
 
