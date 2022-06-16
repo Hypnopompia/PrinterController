@@ -24,7 +24,7 @@ class Temperature(Component):
         self.temp_percent = None
         self.temp_type = temp_type
 
-        self.min_temp = 20
+        self.min_temp = 27
         if self.temp_type == "tool":
             self.max_temp = 200
             self.label = "Tool"
@@ -58,7 +58,9 @@ class Temperature(Component):
     def render(self, surface):
         Text(self.state, self.label, 'label', midright=(self.bar_x - 5, self.y + (self.height // 2))).render(surface)
 
-        pygame.draw.rect(surface, self.state.colors['temperature_infill'],
+        infill_color = self.state.colors['temperature_infill'] if self.target_temp == 0 else self.state.colors['temperature_target']
+
+        pygame.draw.rect(surface, infill_color,
                          pygame.Rect(self.bar_x, self.bar_y, self.current_temp_x, self.bar_height)
                          )  # Infill
 
