@@ -21,9 +21,9 @@ class ControlMode(Mode):
         # self.button_home = Button(self.state, (100, 200), (160, 50), "Home", self.state.fonts['large'], (57, 136, 207),
         #                           (84, 243, 255),
         #                           self.button_home_on_click)
-        self.button_quit = Button(self.state, (680, 20), (120, 40), "Quit", self.button_quit_on_click)
+        self.button_quit = Button(self.state, (660, 20), (120, 40), "Quit", self.button_quit_on_click)
 
-        self.button_purge = Button(self.state, (680, 80), (120, 40), "Purge", self.button_purge_on_click)
+        self.button_purge = Button(self.state, (660, 80), (120, 40), "Purge", self.button_purge_on_click)
 
         self.bed_temp = Temperature(self.state, (20, 280), (360, 40), 'bed', self.toggle_bed_target_temp)
         self.tool_temp = Temperature(self.state, (400, 280), (360, 40), 'tool', self.toggle_tool_target_temp)
