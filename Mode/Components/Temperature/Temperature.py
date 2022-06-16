@@ -50,19 +50,26 @@ class Temperature(Component):
 
     def update(self):
         if self.state.temps[self.temp_type]['actual'] != self.current_temp:
-            self.current_temp = self.state.temps[self.temp_type]['actual']
+            if self.current_temp is None:
+                self.current_temp = 0
+            diff = (self.state.temps[self.temp_type]['actual'] or 0) - (self.current_temp or 0)
+            self.current_temp += max(-1, min(1, diff))
             self.current_temp_x = self.temp_to_width(
                 min(self.max_temp, max(self.min_temp, self.current_temp)))
 
         if self.state.temps[self.temp_type]['target'] != self.target_temp:
-            self.target_temp = self.state.temps[self.temp_type]['target']
+            if self.target_temp is None:
+                self.target_temp = 0
+            diff = self.state.temps[self.temp_type]['target'] - self.target_temp
+            self.target_temp += max(-1, min(1, diff))
             self.target_temp_x = self.temp_to_width(
                 min(self.max_temp, max(self.min_temp, self.target_temp)))
 
     def render(self, surface):
         Text(self.state, self.label, 'label', midright=(self.bar_x - 5, self.y + (self.height // 2))).render(surface)
 
-        infill_color = self.state.colors['temperature_infill'] if self.target_temp == 0 else self.state.colors['temperature_target']
+        infill_color = self.state.colors['temperature_infill'] if self.target_temp == 0 else self.state.colors[
+            'temperature_target']
 
         pygame.draw.rect(surface, infill_color,
                          pygame.Rect(self.bar_x, self.bar_y, self.current_temp_x, self.bar_height)
