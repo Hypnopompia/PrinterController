@@ -42,6 +42,7 @@ class ThreadedWebSocket():
                 self.state.temps['bed']['target'] = round(temps["bed"]["target"], 1)
             if "state" in current:
                 self.state.status_text = current["state"]["text"]
+                self.state.printing = current["state"]["flags"]["printing"]
             if "job" in current:
                 job = current["job"]
                 self.state.est_print_time = int(job["estimatedPrintTime"] or 0)

@@ -38,6 +38,13 @@ class Text:
                 "fontname": self.font,
                 "fontsize": 40
             },
+            "filename": {
+                "color": self.state.colors['text'],
+                "shadow": (1, 1),
+                "scolor": "#666666",
+                "fontname": self.font,
+                "fontsize": 28
+            },
             "label": {
                 "color": self.state.colors['label_text_top'],
                 "gcolor": self.state.colors['label_text_bottom'],

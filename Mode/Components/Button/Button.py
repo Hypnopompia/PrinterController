@@ -17,6 +17,9 @@ class Button(Component):
             if event.button == 1 and self.is_mouse_over(event.pos):
                 self.on_click()
 
+    def set_label(self, label):
+        self.label = label
+
     def on(self):
         self.border_color = self.state.colors['button_border_on']
 

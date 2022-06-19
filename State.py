@@ -19,6 +19,7 @@ class State:
     octoprint_session: str = None
     camera_source: str = "http://ender3.local/webcam/?action=stream"
     # Printer
+    printing: bool = False
     status_text: str = "Initializing"
     temps: dict = field(default_factory=dict)
     # tool_temp: int = 0
@@ -44,6 +45,8 @@ class State:
         self.colors['background_line'] = (0, 60, 72)
 
         self.colors['text'] = (0, 255, 0)  # (228, 239, 240)
+
+        self.colors['filestatus_border'] = (120, 204, 226)
 
         self.colors['label_text_top'] = (228, 239, 240)
         self.colors['label_text_bottom'] = (120, 204, 226)

@@ -6,3 +6,5 @@ from .Hud import Hud
 from .PrintProgressBar import PrintProgressBar
 from .Text import Text
 from .Temperature import Temperature
+from .FileStatus import FileStatus
+from .Status import Status

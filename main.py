@@ -2,7 +2,7 @@ from sys import platform
 import pygame
 from RestClient import RestClient
 from ThreadedWebSocket import ThreadedWebSocket
-from Mode import ControlMode
+from Mode import StatusMode
 from State import State
 
 
@@ -29,7 +29,7 @@ class PrinterController:
         self.clock = pygame.time.Clock()
 
         self.printer = RestClient(self.state)
-        self.switch_mode(ControlMode)
+        self.switch_mode(StatusMode)
 
         self.state.octoprint_session = self.printer.get_session_key()
         self.printer_info = ThreadedWebSocket(self.state)

@@ -37,7 +37,7 @@ class PrintProgressBar:
         self.set_progress(self.state.print_progress)
 
     def render(self, surface):
-        Text(self.state, "Progress", 'label', midtop=(self.x + (self.width // 2), self.y)).render(surface)
+        # Text(self.state, "Progress", 'label', midtop=(self.x + (self.width // 2), self.y)).render(surface)
 
         # Progress Bar
         width = int(self.width * (self.progress / 100))
