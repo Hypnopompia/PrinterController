@@ -31,11 +31,11 @@ class StatusMode(Mode):
     def choose_file_on_click(self):
         pass
 
-    def print_on_click(self):
+    def print_on_click(self, button):
         self.printer.start_job()
         pass
 
-    def cancel_on_click(self):
+    def cancel_on_click(self, button):
         self.printer.cancel_job()
         pass
 

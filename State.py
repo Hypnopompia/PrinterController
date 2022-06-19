@@ -20,6 +20,7 @@ class State:
     camera_source: str = "http://ender3.local/webcam/?action=stream"
     # Printer
     printing: bool = False
+    cancelling: bool = False
     status_text: str = "Initializing"
     temps: dict = field(default_factory=dict)
     # tool_temp: int = 0

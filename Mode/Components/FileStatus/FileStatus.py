@@ -18,11 +18,11 @@ class FileStatus(Component):
 
         self.filename_width = self.width - 140
 
-    def button_print_on_click(self):
+    def button_print_on_click(self, button):
         if self.state.printing:
-            self.cancel_on_click()
+            self.cancel_on_click(button)
         else:
-            self.print_on_click()
+            self.print_on_click(button)
 
     def process_event(self, event):
         self.print_button.process_event(event)
@@ -42,4 +42,5 @@ class FileStatus(Component):
         Text(self.state, self.filename, "filename",
              center=(self.x + (self.filename_width // 2), self.y + (self.height // 2))).render(surface)
 
-        self.print_button.render(surface)
+        if not self.state.cancelling:
+            self.print_button.render(surface)

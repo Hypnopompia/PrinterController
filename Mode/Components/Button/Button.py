@@ -15,7 +15,7 @@ class Button(Component):
     def process_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1 and self.is_mouse_over(event.pos):
-                self.on_click()
+                self.on_click(self)
 
     def set_label(self, label):
         self.label = label
