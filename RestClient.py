@@ -92,7 +92,7 @@ class RestClient:
         r = requests.post(url, data=data, headers=self._headers)
         return r.status_code == 204
 
-    def start_purge_filament(self):
+    def start_filament_maintenance(self):
         self.state.make_busy()
         url = self._build_url("printer/command")
         data = json.dumps({'commands': [
@@ -107,20 +107,32 @@ class RestClient:
         r = requests.post(url, data=data, headers=self._headers)
         return r.status_code == 204
 
-    def purge_filament(self, length: int):
-        self.state.temps['tool']['target'] = 200
+    def eject_filament(self, length: int):
         self.state.make_busy()
         url = self._build_url("printer/command")
         data = json.dumps({'commands': [
             "G92 E0",  # zero the extruded length
-            "G1 F75 E" + str(length).strip(),  # extrude 10mm of feed stock
+            "G1 F75 E5", # push out a little bit
+            "M400", # wait
+            "G92, E0", # reset exturder
+            "G1 F1000 E-" + str(abs(length)).strip(),  # eject filament
             "M400",  # Wait for the extruder to finish
         ]})
         r = requests.post(url, data=data, headers=self._headers)
         return r.status_code == 204
 
-    def end_purge_filament(self):
-        self.state.temps['tool']['target'] = 200
+    def purge_filament(self, length: int):
+        self.state.make_busy()
+        url = self._build_url("printer/command")
+        data = json.dumps({'commands': [
+            "G92 E0",  # zero the extruded length
+            "G1 F75 E" + str(abs(length)).strip(),  # extrude 10mm of feed stock
+            "M400",  # Wait for the extruder to finish
+        ]})
+        r = requests.post(url, data=data, headers=self._headers)
+        return r.status_code == 204
+
+    def end_filament_maintenance(self):
         url = self._build_url("printer/command")
         data = json.dumps({'commands': [
             "G92 E0",  # zero the extruded length

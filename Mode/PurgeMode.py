@@ -1,4 +1,3 @@
-import pygame
 from Mode.Mode import Mode
 from .Components import Background, Text, Hud, Button, Temperature
 
@@ -19,13 +18,13 @@ class PurgeMode(Mode):
 
         self.state.purge_status = "Heating up hot end"
         self.state.purging = True
-        self.printer.start_purge_filament()
+        self.printer.start_filament_maintenance()
 
     def button_stop_on_click(self, button):
         self.state.purge_status = "Stopping purge..."
         self.state.purging = False
-        self.printer.end_purge_filament()
-        self.switch_mode('tool')
+        self.printer.end_filament_maintenance()
+        self.switch_mode('status')
 
     def process_event(self, event):
         for component in self.components:

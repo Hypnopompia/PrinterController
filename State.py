@@ -38,6 +38,8 @@ class State:
     last_busy_time = 0
     purging = False
     purge_status = None
+    changing_filament = False
+    change_filament_status = None
 
     def init(self):
         font = "./assets/fonts/recharge/recharge.ttf"

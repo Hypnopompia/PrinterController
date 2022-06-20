@@ -37,10 +37,10 @@ class ToolMode(Mode):
         self.switch_mode('status')
 
     def button_change_on_click(self, button):
-        pass
+        self.switch_mode('change_filament')
 
     def button_purge_on_click(self, button):
-        self.switch_mode('purge')
+        self.switch_mode('purge_filament')
 
     def button_level_on_click(self, button):
         pass

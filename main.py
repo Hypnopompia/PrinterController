@@ -2,7 +2,7 @@ from sys import platform
 import pygame
 from RestClient import RestClient
 from ThreadedWebSocket import ThreadedWebSocket
-from Mode import StatusMode, ToolMode, PurgeMode
+from Mode import StatusMode, ToolMode, PurgeMode, ChangeMode
 from State import State
 
 
@@ -17,7 +17,8 @@ class PrinterController:
         self.modes = {
             'status': StatusMode,
             'tool': ToolMode,
-            'purge': PurgeMode,
+            'purge_filament': PurgeMode,
+            'change_filament': ChangeMode,
         }
 
         if platform == "linux" or platform == "linux2":

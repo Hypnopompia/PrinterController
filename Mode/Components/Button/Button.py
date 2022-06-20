@@ -13,9 +13,12 @@ class Button(Component):
         self.border_color = self.state.colors['button_border']
 
     def process_event(self, event):
+        handled = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1 and self.is_mouse_over(event.pos):
+                handled = True
                 self.on_click(self)
+        return handled
 
     def set_label(self, label):
         self.label = label
