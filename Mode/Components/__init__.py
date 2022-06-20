@@ -8,3 +8,4 @@ from .Text import Text
 from .Temperature import Temperature
 from .FileStatus import FileStatus
 from .Status import Status
+from .File import File

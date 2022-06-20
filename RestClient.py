@@ -1,4 +1,6 @@
 import time
+import urllib
+
 import requests
 import json
 import logging
@@ -112,9 +114,9 @@ class RestClient:
         url = self._build_url("printer/command")
         data = json.dumps({'commands': [
             "G92 E0",  # zero the extruded length
-            "G1 F75 E5", # push out a little bit
-            "M400", # wait
-            "G92, E0", # reset exturder
+            "G1 F75 E5",  # extrude 5mm
+            "M400",  # wait
+            "G92, E0",  # reset extruder
             "G1 F1000 E-" + str(abs(length)).strip(),  # eject filament
             "M400",  # Wait for the extruder to finish
         ]})
@@ -126,7 +128,7 @@ class RestClient:
         url = self._build_url("printer/command")
         data = json.dumps({'commands': [
             "G92 E0",  # zero the extruded length
-            "G1 F75 E" + str(abs(length)).strip(),  # extrude 10mm of feed stock
+            "G1 F75 E" + str(abs(length)).strip(),  # extrude LENGTH mm of filament
             "M400",  # Wait for the extruder to finish
         ]})
         r = requests.post(url, data=data, headers=self._headers)
@@ -165,8 +167,8 @@ class RestClient:
         r = requests.post(url, data=data, headers=self._headers)
         return r.status_code == 204
 
-    def select_file(self, filename):
-        url = self._build_url("files/local/" + filename)
+    def select_file(self, location, filename):
+        url = self._build_url("files/" + location + "/" + filename)
         data = json.dumps({'command': 'select'})
         r = requests.post(url, data=data, headers=self._headers)
         return r.status_code == 204
@@ -193,9 +195,9 @@ class RestClient:
         r = requests.post(self._build_url("printer/tool"), data=data, headers=self._headers)
         return r.status_code in [200, 204]
 
-    def get_list_of_files(self):
+    def get_list_of_files(self, location="local"):
         try:
-            r = requests.get(self._build_url("files"), headers=self._headers)
+            r = requests.get(self._build_url("files/" + location, {"recursive": "true"}), headers=self._headers)
         except requests.ConnectionError as e:
             logging.warning("Connection error")
             return {'files': []}
@@ -223,5 +225,10 @@ class RestClient:
         logging.warning("Unable to gt slicers: " + r.status_code)
         return {}
 
-    def _build_url(self, path):
-        return f"http://{self._host}:{self._port}/api/{path}"
+    def _build_url(self, path, query=None):
+        if query is None:
+            query = {}
+        url = f"http://{self._host}:{self._port}/api/{path}"
+        if len(query.keys()) > 0:
+            url += "?" + urllib.parse.urlencode(query)
+        return url

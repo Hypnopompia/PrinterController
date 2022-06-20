@@ -24,8 +24,17 @@ class FileStatus(Component):
         else:
             self.print_on_click(button)
 
+    def is_filename_clicked(self, pos):
+        return pygame.Rect(self.x, self.y, self.filename_width, self.height).collidepoint(pos)
+
     def process_event(self, event):
-        self.print_button.process_event(event)
+        handled = self.print_button.process_event(event)
+
+        if not handled and event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1 and self.is_filename_clicked(event.pos):
+                handled = True
+                self.choose_file_on_click(self)
+        return handled
 
     def update(self):
         self.filename = self.state.filename

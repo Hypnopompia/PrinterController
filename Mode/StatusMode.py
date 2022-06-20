@@ -31,16 +31,14 @@ class StatusMode(Mode):
     def button_quit_on_click(self, button):
         self.quit_requested()
 
-    def choose_file_on_click(self):
-        pass
+    def choose_file_on_click(self, button):
+        self.switch_mode('file')
 
     def print_on_click(self, button):
         self.printer.start_job()
-        pass
 
     def cancel_on_click(self, button):
         self.printer.cancel_job()
-        pass
 
     def process_event(self, event):
         for component in self.components:
