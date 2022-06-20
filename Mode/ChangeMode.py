@@ -51,7 +51,7 @@ class ChangeMode(Mode):
             self.state.change_filament_status = "Heating up hot end..."
             self.printer.start_filament_maintenance()
         elif self.change_state == self.HEATING:
-            if not self.state.printer_busy:
+            if self.state.temps['tool']['actual'] > 195 and not self.state.printer_busy:
                 self.change_state = self.EJECTING
                 self.state.change_filament_status = "Ejecting filament..."
                 self.printer.eject_filament(400)

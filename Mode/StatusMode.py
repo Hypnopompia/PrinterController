@@ -48,7 +48,7 @@ class StatusMode(Mode):
         for component in self.components:
             component.update()
 
-        if self.state.purging and self.state.temps['tool']['actual'] > 190 and not self.state.printer_busy:
+        if self.state.purging and self.state.temps['tool']['actual'] > 195 and not self.state.printer_busy:
             self.purge_counter += self.purge_length
             self.state.purge_status = "Purging (" + str(self.purge_counter) + "mm)..."
             self.printer.purge_filament(self.purge_length)
