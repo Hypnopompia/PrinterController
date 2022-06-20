@@ -7,16 +7,25 @@ from Mode.Components.Text import Text
 class Button(Component):
     def __init__(self, state, pos, size, label, on_click, icon=None):
         super().__init__(state, pos, size)
+        self.enabled = True
         self.label = label
         self.on_click = on_click
-        self.draw_button()
         self.border_color = self.state.colors['button_border']
         self.icon = icon
 
-        if self.icon:
+        if self.icon is not None:
             self.icon_surface = pygame.image.load("assets/images/" + self.icon)
 
+    def enable(self):
+        self.enabled = True
+
+    def disable(self):
+        self.enabled = False
+
     def process_event(self, event):
+        if not self.enabled:
+            return False
+
         handled = False
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1 and self.is_mouse_over(event.pos):
@@ -36,37 +45,10 @@ class Button(Component):
     def update(self):
         pass
 
-    def draw_button(self):
-        pass
-
-    def aspect_scale(self, img, bx, by):
-        """ Scales 'img' to fit into box bx/by.
-         This method will retain the original image's aspect ratio """
-        ix, iy = img.get_size()
-        if ix > iy:
-            # fit to width
-            scale_factor = bx / float(ix)
-            sy = scale_factor * iy
-            if sy > by:
-                scale_factor = by / float(iy)
-                sx = scale_factor * ix
-                sy = by
-            else:
-                sx = bx
-        else:
-            # fit to height
-            scale_factor = by / float(iy)
-            sx = scale_factor * ix
-            if sx > bx:
-                scale_factor = bx / float(ix)
-                sx = bx
-                sy = scale_factor * iy
-            else:
-                sy = by
-
-        return pygame.transform.scale(img, (int(sx), int(sy)))
-
     def render(self, surface):
+        if not self.enabled:
+            return False
+
         pygame.draw.rect(surface, self.border_color, self.get_rect(), 1)
 
         if self.icon:

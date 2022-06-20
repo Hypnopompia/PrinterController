@@ -10,18 +10,21 @@ class StatusMode(Mode):
         self.purge_length = 10
         self.purge_counter = 0
 
-        self.components = [
-            Background(self.state),
-            Text(self.state, self.state.printer_name, "heading", center=(self.state.window_width // 2, 30)),
-            Hud(self.state),
-            Button(self.state, (740, 1), (40, 40), "X", self.button_quit_on_click),
-            Button(self.state, (680, 160), (80, 80), "", self.button_tools_on_click, "tools.png"),
-            FileStatus(self.state, (20, 80), self.choose_file_on_click, self.print_on_click, self.cancel_on_click),
-            Status(self.state, (20, 160)),
-            Temperature(self.state, (20, 280), (360, 40), 'bed', self.toggle_bed_target_temp),
-            Temperature(self.state, (400, 280), (360, 40), 'tool', self.toggle_tool_target_temp),
-            PrintProgressBar(self.state, (20, 360), (self.state.window_width - 40, 40))
-        ]
+        self.components = {
+            "background": Background(self.state),
+            "heading": Text(self.state, self.state.printer_name, "heading", center=(self.state.window_width // 2, 30)),
+            "hud": Hud(self.state),
+            "btn_quit": Button(self.state, (740, 1), (40, 40), "X", self.button_quit_on_click),
+            "btn_tools": Button(self.state, (680, 160), (80, 80), "", self.button_tools_on_click, "tools.png"),
+            "file_status": FileStatus(self.state, (20, 80), self.choose_file_on_click, self.print_on_click,
+                                      self.cancel_on_click),
+            "status": Status(self.state, (20, 160)),
+            "bed_temp": Temperature(self.state, (20, 280), (360, 40), 'bed', self.toggle_bed_target_temp),
+            "tool_temp": Temperature(self.state, (400, 280), (360, 40), 'tool', self.toggle_tool_target_temp),
+            "progress_bar": PrintProgressBar(self.state, (20, 360), (self.state.window_width - 40, 40))
+        }
+
+        self.components['btn_tools'].disable()
 
     def button_tools_on_click(self, button):
         self.switch_mode('tool')
@@ -42,11 +45,16 @@ class StatusMode(Mode):
 
     def process_event(self, event):
         for component in self.components:
-            component.process_event(event)
+            self.components[component].process_event(event)
 
     def update(self):
+        if self.state.printing:
+            self.components['btn_tools'].disable()
+        else:
+            self.components['btn_tools'].enable()
+
         for component in self.components:
-            component.update()
+            self.components[component].update()
 
         if self.state.purging and self.state.temps['tool']['actual'] > 195 and not self.state.printer_busy:
             self.purge_counter += self.purge_length
@@ -55,4 +63,4 @@ class StatusMode(Mode):
 
     def render(self, surface):
         for component in self.components:
-            component.render(surface)
+            self.components[component].render(surface)

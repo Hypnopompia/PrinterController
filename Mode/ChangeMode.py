@@ -13,16 +13,16 @@ class ChangeMode(Mode):
     def __init__(self, state, printer):
         super().__init__(state, printer)
 
-        self.components = [
-            Background(self.state),
-            Text(self.state, "Change Filament", "heading", center=(self.state.window_width // 2, 30)),
-            Hud(self.state),
-            Button(self.state, (680, 1), (100, 40), "Back", self.button_back_on_click),
-            Temperature(self.state, (220, 300), (360, 40), 'tool', self.toggle_tool_target_temp),
-        ]
+        self.components = {
+            "background": Background(self.state),
+            "heading": Text(self.state, "Change Filament", "heading", center=(self.state.window_width // 2, 30)),
+            "hud": Hud(self.state),
+            "btn_back": Button(self.state, (680, 1), (100, 40), "Back", self.button_back_on_click),
+            "btn_continue": Button(self.state, (540, 160), (180, 60), "Continue", self.button_continue_on_click),
+            "tool_temp": Temperature(self.state, (220, 300), (360, 40), 'tool', self.toggle_tool_target_temp),
+        }
 
-        self.continue_button = Button(self.state, (540, 160), (180, 60), "Continue", self.button_continue_on_click)
-
+        self.components['btn_continue'].disable()
         self.change_state = self.READY
         self.state.changing_filament = True
 
@@ -37,14 +37,11 @@ class ChangeMode(Mode):
 
     def process_event(self, event):
         for component in self.components:
-            component.process_event(event)
-
-        # This is so only one button (which are in the same location) handles a click
-        self.continue_button.process_event(event)
+            self.components[component].process_event(event)
 
     def update(self):
         for component in self.components:
-            component.update()
+            self.components[component].update()
 
         if self.change_state == self.READY:
             self.change_state = self.HEATING
@@ -59,9 +56,11 @@ class ChangeMode(Mode):
             if not self.state.printer_busy:
                 self.change_state = self.WAITING
                 self.state.change_filament_status = "Load filament and press continue."
+                self.components['btn_continue'].enable()
+
         elif self.change_state == self.PURGING:
             self.state.change_filament_status = "Purging filament"
-            self.continue_button.set_label("Stop")
+            self.components['btn_continue'].set_label("Stop")
             if not self.state.printer_busy:
                 self.printer.purge_filament(25)
         elif self.change_state == self.STOPPED:
@@ -70,11 +69,8 @@ class ChangeMode(Mode):
 
     def render(self, surface):
         for component in self.components:
-            component.render(surface)
+            self.components[component].render(surface)
 
-        if self.state.changing_filament:
-            Text(self.state, "Status: " + self.state.change_filament_status, "regular_mono", topleft=(100, 180)).render(
+        Text(self.state, "Status: " + self.state.change_filament_status, "regular_mono", topleft=(100, 180)).render(
                 surface)
 
-        if self.change_state == self.WAITING or self.change_state == self.PURGING:
-            self.continue_button.render(surface)
