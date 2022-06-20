@@ -19,6 +19,7 @@ class State:
     octoprint_session: str = None
     camera_source: str = "http://ender3.local/webcam/?action=stream"
     # Printer
+    printer_name: str = "Ender 3 v2"
     printing: bool = False
     cancelling: bool = False
     status_text: str = "Initializing"

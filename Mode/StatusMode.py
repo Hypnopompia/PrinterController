@@ -12,9 +12,10 @@ class StatusMode(Mode):
 
         self.components = [
             Background(self.state),
-            Text(self.state, "Ender 3 v2", "heading", center=(self.state.window_width // 2, 30)),
+            Text(self.state, self.state.printer_name, "heading", center=(self.state.window_width // 2, 30)),
             Hud(self.state),
-            Button(self.state, (759, 1), (40, 40), "X", self.button_quit_on_click),
+            Button(self.state, (740, 1), (40, 40), "X", self.button_quit_on_click),
+            Button(self.state, (660, 160), (120, 80), "Tools", self.button_tools_on_click),
             FileStatus(self.state, (20, 80), self.choose_file_on_click, self.print_on_click, self.cancel_on_click),
             Status(self.state, (20, 160)),
             Temperature(self.state, (20, 260), (360, 40), 'bed', self.toggle_bed_target_temp),
@@ -22,8 +23,8 @@ class StatusMode(Mode):
             PrintProgressBar(self.state, (20, 340), (self.state.window_width - 40, 40))
         ]
 
-    def button_home_on_click(self, button):
-        self.home_printer()
+    def button_tools_on_click(self, button):
+        self.switch_mode('tool')
 
     def button_quit_on_click(self, button):
         self.quit_requested()
@@ -39,25 +40,7 @@ class StatusMode(Mode):
         self.printer.cancel_job()
         pass
 
-    def button_purge_on_click(self, button):
-        if not self.state.purging:
-            self.state.purge_status = "Heating up hot end"
-            self.state.purging = True
-            button.on()
-            self.printer.start_purge_filament()
-        else:
-            self.state.purge_status = "Stopping purge..."
-            self.state.purging = False
-            button.off()
-            self.printer.end_purge_filament()
-
     def process_event(self, event):
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                self.printer_command("preheat")
-            elif event.key == pygame.K_h:
-                self.printer_command("home")
-
         for component in self.components:
             component.process_event(event)
 

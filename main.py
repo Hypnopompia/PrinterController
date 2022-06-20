@@ -2,7 +2,7 @@ from sys import platform
 import pygame
 from RestClient import RestClient
 from ThreadedWebSocket import ThreadedWebSocket
-from Mode import StatusMode
+from Mode import StatusMode, ToolMode, PurgeMode
 from State import State
 
 
@@ -13,6 +13,12 @@ class PrinterController:
         pygame.init()
         self.state = State()
         self.state.init()
+
+        self.modes = {
+            'status': StatusMode,
+            'tool': ToolMode,
+            'purge': PurgeMode,
+        }
 
         if platform == "linux" or platform == "linux2":
             # https://github.com/MobilityLab/TransitScreen/wiki/Raspberry-Pi
@@ -29,13 +35,13 @@ class PrinterController:
         self.clock = pygame.time.Clock()
 
         self.printer = RestClient(self.state)
-        self.switch_mode(StatusMode)
+        self.switch_mode('status')
 
         self.state.octoprint_session = self.printer.get_session_key()
         self.printer_info = ThreadedWebSocket(self.state)
 
     def switch_mode(self, mode):
-        self.mode = mode(self.state, self.printer)
+        self.mode = self.modes[mode](self.state, self.printer)
         self.mode.add_observer(self)
 
     def process_events(self):

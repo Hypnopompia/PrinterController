@@ -11,6 +11,10 @@ class Mode:
         for observer in self.__observers:
             observer.quit_requested()
 
+    def switch_mode(self, mode):
+        for observer in self.__observers:
+            observer.switch_mode(mode)
+
     def printer_command(self, command):
         for observer in self.__observers:
             observer.printer_command(command)
@@ -23,9 +27,6 @@ class Mode:
 
     def render(self, window):
         raise NotImplementedError()
-
-    def home_printer(self):
-        self.printer.home(['x', 'y', 'z'])
 
     def toggle_bed_target_temp(self):
         if self.state.temps['bed']['target'] == 0:
