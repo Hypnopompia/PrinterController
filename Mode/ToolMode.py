@@ -1,4 +1,3 @@
-import pygame
 from Mode.Mode import Mode
 from .Components import Background, Text, Hud, Button
 

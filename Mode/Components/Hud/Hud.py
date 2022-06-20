@@ -1,5 +1,3 @@
-import pygame
-
 from Mode.Components.Text import Text
 
 
