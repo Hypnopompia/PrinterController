@@ -15,12 +15,12 @@ class StatusMode(Mode):
             Text(self.state, self.state.printer_name, "heading", center=(self.state.window_width // 2, 30)),
             Hud(self.state),
             Button(self.state, (740, 1), (40, 40), "X", self.button_quit_on_click),
-            Button(self.state, (660, 160), (120, 80), "Tools", self.button_tools_on_click),
+            Button(self.state, (660, 180), (120, 40), "Tools", self.button_tools_on_click),
             FileStatus(self.state, (20, 80), self.choose_file_on_click, self.print_on_click, self.cancel_on_click),
             Status(self.state, (20, 160)),
-            Temperature(self.state, (20, 260), (360, 40), 'bed', self.toggle_bed_target_temp),
-            Temperature(self.state, (400, 260), (360, 40), 'tool', self.toggle_tool_target_temp),
-            PrintProgressBar(self.state, (20, 340), (self.state.window_width - 40, 40))
+            Temperature(self.state, (20, 280), (360, 40), 'bed', self.toggle_bed_target_temp),
+            Temperature(self.state, (400, 280), (360, 40), 'tool', self.toggle_tool_target_temp),
+            PrintProgressBar(self.state, (20, 360), (self.state.window_width - 40, 40))
         ]
 
     def button_tools_on_click(self, button):
