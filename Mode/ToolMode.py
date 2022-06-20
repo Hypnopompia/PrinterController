@@ -15,8 +15,8 @@ class ToolMode(Mode):
             Text(self.state, "Tools", "heading", center=(self.state.window_width // 2, 30)),
             Hud(self.state),
             Button(self.state, (680, 1), (100, 40), "Back", self.button_back_on_click),
-            Button(self.state, (40, 80), (160, 160), "Change\nFilament", self.button_change_on_click),
-            Button(self.state, (220, 80), (160, 160), "Purge\nFilament", self.button_purge_on_click),
+            Button(self.state, (40, 80), (160, 160), "Change\nFilament", self.button_change_on_click, "filament.png"),
+            Button(self.state, (220, 80), (160, 160), "Purge\nFilament", self.button_purge_on_click, "purge.png"),
 
             Button(self.state, (40, 260), (160, 160), "Level\nBed", self.button_level_on_click),
             # Button(self.state, (220, 260), (160, 160), "TBD", self.button_tbd_on_click),
