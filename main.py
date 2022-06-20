@@ -21,6 +21,8 @@ class PrinterController:
             'change_filament': ChangeMode,
         }
 
+        self.switch_to_mode = "status"
+
         if platform == "linux" or platform == "linux2":
             # https://github.com/MobilityLab/TransitScreen/wiki/Raspberry-Pi
             self.window = pygame.display.set_mode((self.state.window_width, self.state.window_height),
@@ -42,8 +44,7 @@ class PrinterController:
         self.printer_info = ThreadedWebSocket(self.state)
 
     def switch_mode(self, mode):
-        self.mode = self.modes[mode](self.state, self.printer)
-        self.mode.add_observer(self)
+        self.switch_to_mode = mode
 
     def process_events(self):
         for event in pygame.event.get():
@@ -55,11 +56,19 @@ class PrinterController:
                     self.quit_requested()
                     return
 
-            self.mode.process_event(event)
+            if self.mode is not None:
+                self.mode.process_event(event)
 
     def update(self):
+        if self.switch_to_mode is not None:
+            self.mode = self.modes[self.switch_to_mode](self.state, self.printer)
+            self.mode.add_observer(self)
+            self.switch_to_mode = None
+
         self.state.current_fps = int(self.clock.get_fps())
-        self.mode.update()
+
+        if self.mode is not None:
+            self.mode.update()
 
     def render(self):
         if self.mode is not None:
