@@ -12,7 +12,7 @@ class PurgeMode(Mode):
             Background(self.state),
             Text(self.state, "Purge Filament", "heading", center=(self.state.window_width // 2, 30)),
             Hud(self.state),
-            Button(self.state, (600, 140), (100, 100), "Stop", self.button_stop_on_click),
+            Button(self.state, (540, 160), (180, 60), "Stop", self.button_stop_on_click),
             Temperature(self.state, (220, 300), (360, 40), 'tool', self.toggle_tool_target_temp),
         ]
 
