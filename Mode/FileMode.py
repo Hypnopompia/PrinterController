@@ -13,8 +13,8 @@ class FileMode(Mode):
             "heading": Text(self.state, "Files", "heading", center=(self.state.window_width // 2, 30)),
             "hud": Hud(self.state),
             "btn_back": Button(self.state, (680, 1), (100, 40), "Back", self.button_back_on_click),
-            "btn_page_up": Button(self.state, (740, 60), (40, 40), "^", self.button_up_on_click),
-            "btn_page_down": Button(self.state, (740, 400), (40, 40), "v", self.button_down_on_click),
+            "btn_page_up": Button(self.state, (740, 60), (40, 80), "^", self.button_up_on_click),
+            "btn_page_down": Button(self.state, (740, 380), (40, 80), "v", self.button_down_on_click),
         }
 
         self.file_components = []
