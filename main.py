@@ -4,7 +4,7 @@ import pygame
 from Mode.Components import Background
 from RestClient import RestClient
 from ThreadedWebSocket import ThreadedWebSocket
-from Mode import StatusMode, ToolMode, PurgeMode, ChangeMode, FileMode
+from Mode import StatusMode, ToolMode, PurgeMode, ChangeMode, FileMode, LevelMode
 from State import State
 
 
@@ -22,6 +22,7 @@ class PrinterController:
             'purge_filament': PurgeMode,
             'change_filament': ChangeMode,
             'file': FileMode,
+            'level': LevelMode,
         }
 
         self.switch_to_mode = "status"

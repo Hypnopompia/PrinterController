@@ -39,7 +39,7 @@ class ToolMode(Mode):
         self.switch_mode('purge_filament')
 
     def button_level_on_click(self, button):
-        pass
+        self.switch_mode('level')
 
     def button_tbd_on_click(self, button):
         pass

@@ -185,6 +185,18 @@ class RestClient:
         r = requests.post(self._build_url("printer/printhead"), data=data, headers=self._headers)
         return r.status_code == 204
 
+    def move_to(self, axes, speed=4000):
+        self.state.make_busy()
+        url = self._build_url("printer/command")
+        x, y = axes
+        data = json.dumps({'commands': [
+            "G1 F" + str(speed),  # Set feed rate to 5000mm/m
+            "G1 X" + str(x) + " Y" + str(y),  # Move to x,y
+            "M400",  # Wait for the head to stop
+        ]})
+        r = requests.post(url, data=data, headers=self._headers)
+        return r.status_code == 204
+
     def extrude(self, amount):
         data = json.dumps({'command': 'extrude', 'amount': amount})
         r = requests.post(self._build_url("printer/tool"), data=data, headers=self._headers)
