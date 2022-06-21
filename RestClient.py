@@ -190,7 +190,7 @@ class RestClient:
         url = self._build_url("printer/command")
         x, y = axes
         data = json.dumps({'commands': [
-            "G1 F" + str(speed),  # Set feed rate to 5000mm/m
+            "G1 F" + str(speed),  # Set move rate in mm/m
             "G1 X" + str(x) + " Y" + str(y),  # Move to x,y
             "M400",  # Wait for the head to stop
         ]})
