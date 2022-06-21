@@ -10,7 +10,6 @@ class ToolMode(Mode):
         self.move_y = 140
 
         self.components = {
-            "background": Background(self.state),
             "heading": Text(self.state, "Tools", "heading", center=(self.state.window_width // 2, 30)),
             "hud": Hud(self.state),
             "btn_back": Button(self.state, (680, 1), (100, 40), "Back", self.button_back_on_click),

@@ -10,7 +10,6 @@ class StatusMode(Mode):
         self.purge_counter = 0
 
         self.components = {
-            "background": Background(self.state),
             "heading": Text(self.state, self.state.printer_name, "heading", center=(self.state.window_width // 2, 30)),
             "hud": Hud(self.state),
             "btn_quit": Button(self.state, (740, 1), (40, 40), "X", self.button_quit_on_click),

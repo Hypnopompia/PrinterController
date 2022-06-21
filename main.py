@@ -1,5 +1,7 @@
 from sys import platform
 import pygame
+
+from Mode.Components import Background
 from RestClient import RestClient
 from ThreadedWebSocket import ThreadedWebSocket
 from Mode import StatusMode, ToolMode, PurgeMode, ChangeMode, FileMode
@@ -43,6 +45,7 @@ class PrinterController:
 
         self.state.octoprint_session = self.printer.get_session_key()
         self.printer_info = ThreadedWebSocket(self.state)
+        self.background = Background(self.state)
 
     def switch_mode(self, mode):
         self.switch_to_mode = mode
@@ -68,10 +71,14 @@ class PrinterController:
 
         self.state.current_fps = int(self.clock.get_fps())
 
+        self.background.update()
+
         if self.mode is not None:
             self.mode.update()
 
     def render(self):
+        self.background.render(self.window)
+
         if self.mode is not None:
             self.mode.render(self.window)
         pygame.display.update()

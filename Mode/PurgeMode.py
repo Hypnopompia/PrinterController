@@ -9,7 +9,6 @@ class PurgeMode(Mode):
         self.purge_counter = 0
 
         self.components = {
-            "background": Background(self.state),
             "heading": Text(self.state, "Purge Filament", "heading", center=(self.state.window_width // 2, 30)),
             "hud": Hud(self.state),
             "btn_stop": Button(self.state, (540, 160), (180, 60), "Stop", self.button_stop_on_click),
