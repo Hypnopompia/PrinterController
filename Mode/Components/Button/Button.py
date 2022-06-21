@@ -5,12 +5,12 @@ from Mode.Components.Text import Text
 
 
 class Button(Component):
-    def __init__(self, state, pos, size, label, on_click, icon=None):
+    def __init__(self, state, pos, size, label, on_click, icon=None, color=None):
         super().__init__(state, pos, size)
         self.enabled = True
         self.label = label
         self.on_click = on_click
-        self.border_color = self.state.colors['button_border']
+        self.border_color = color if color is not None else self.state.colors['button_border']
         self.icon = icon
 
         if self.icon is not None:

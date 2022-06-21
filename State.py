@@ -68,6 +68,10 @@ class State:
         self.colors['progress_infill'] = (46, 97, 150)
         self.colors['progress_border'] = (101, 169, 240)
 
+        self.colors['level_bed_border'] = (0, 255, 0)
+        self.colors['level_btn_border'] = (120, 204, 226)
+        self.colors['level_target'] = (237, 64, 92)
+
         # self.colors['text_highlight'] = (128, 128, 128)
         # self.colors['text_light'] = (228, 239, 240)
         # self.colors['text_light_highlight'] = (128, 128, 128)
