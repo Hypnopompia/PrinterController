@@ -16,7 +16,7 @@ class ToolMode(Mode):
             "btn_change_filament": Button(self.state, (40, 80), (160, 160), "Change\nFilament", self.button_change_on_click, "filament.png"),
             "btn_purge_filament": Button(self.state, (220, 80), (160, 160), "Purge\nFilament", self.button_purge_on_click, "purge.png"),
 
-            "btn_level_bed": Button(self.state, (40, 260), (160, 160), "Level\nBed", self.button_level_on_click),
+            "btn_level_bed": Button(self.state, (40, 260), (160, 160), "Level\nBed", self.button_level_on_click, "level.png"),
             # "btn_tbd": Button(self.state, (220, 260), (160, 160), "TBD", self.button_tbd_on_click),
 
             "btn_north": Button(self.state, (self.move_x + 80, self.move_y), (60, 60), "^", self.button_north_on_click),
