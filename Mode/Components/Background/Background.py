@@ -27,11 +27,12 @@ class Background:
         pass
 
     def update(self):
-        if not self.rider_enabled:
-            if self.rider_last_time + self.rider_interval < time.process_time():
-                self.start_rider()
-
-        self.update_rider()
+        # if not self.rider_enabled:
+        #     if self.rider_last_time + self.rider_interval < time.process_time():
+        #         self.start_rider()
+        #
+        # self.update_rider()
+        pass
 
     def start_rider(self):
         print('start')
