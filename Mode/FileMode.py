@@ -28,17 +28,26 @@ class FileMode(Mode):
 
     def load_files(self):
         for file in self.printer.get_list_of_files('local')['files']:
-            self.files.append({
-                'location': file['origin'],
-                'display': file['display'],
-                'path': file['path'],
-                'type': file['type'],
-                'uploaded': file['date'],
-            })
+            if file['type'] == 'folder':
+                pass
+                # self.files.append({
+                #     'location': file['origin'],
+                #     'display': file['display'],
+                #     'path': file['path'],
+                #     'type': file['type'],
+                #     'uploaded': 0,
+                # })
+            else:
+                self.files.append({
+                    'location': file['origin'],
+                    'display': file['display'],
+                    'path': file['path'],
+                    'type': file['type'],
+                    'uploaded': file['date'],
+                })
 
         self.files = sorted(self.files, key=lambda d: d['uploaded'], reverse=True)
         self.pages = math.ceil(len(self.files) / self.page_size)
-        print("Total Pages: " + str(self.pages))
 
     def load_current_page(self):
         self.file_components = []
