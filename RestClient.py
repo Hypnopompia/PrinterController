@@ -219,6 +219,8 @@ class RestClient:
             return {'files': []}
         if r.status_code in [200, 204]:
             return r.json()
+
+        logging.warning(r.json())
         logging.warning("Unable to contact OctoPrint by REST. "
                         "Check your API key (currently '" + self._api_key + "'")
         return {'files': []}

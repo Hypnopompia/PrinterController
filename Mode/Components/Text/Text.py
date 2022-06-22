@@ -52,6 +52,13 @@ class Text:
                 "fontname": self.font,
                 "fontsize": 25
             },
+            "folder_small": {
+                "color": (228, 239, 240),
+                "shadow": (1, 1),
+                "scolor": "#666666",
+                "fontname": self.font,
+                "fontsize": 25
+            },
             "label": {
                 "color": self.state.colors['label_text_top'],
                 "gcolor": self.state.colors['label_text_bottom'],

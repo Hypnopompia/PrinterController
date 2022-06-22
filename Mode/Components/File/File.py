@@ -8,6 +8,7 @@ class File(Component):
         super().__init__(state, pos, (700, 40))
         self.file = file
         self.on_click = on_click
+        self.text_style = 'folder_small' if self.file['type'] == "folder" else 'filename_small'
 
     def process_event(self, event):
         handled = False
@@ -25,6 +26,7 @@ class File(Component):
                          (0, 255, 0),
                          pygame.Rect(self.x, self.y, self.width, self.height),
                          1)
-        Text(self.state, self.file['display'], 'filename_small',
+
+        Text(self.state, self.file['display'], self.text_style,
              midleft=(self.x + 20, self.y + (self.height // 2)),
              ).render(surface)
