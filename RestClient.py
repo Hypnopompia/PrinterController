@@ -191,8 +191,12 @@ class RestClient:
         x, y = axes
         data = json.dumps({'commands': [
             "G1 F" + str(speed),  # Set move rate in mm/m
+            "G1 Z5",
+            "M400",
             "G1 X" + str(x) + " Y" + str(y),  # Move to x,y
             "M400",  # Wait for the head to stop
+            "G28 Z",
+            "M400",
         ]})
         r = requests.post(url, data=data, headers=self._headers)
         return r.status_code == 204
